@@ -10,6 +10,7 @@
 from django.db import models
 
 class Spreadsheet(models.Model):
+    id = models.TextField(db_column=u'id', blank=True) # range 2 - 541, pseudo unique id
     hr = models.TextField(db_column=u'HR', blank=True) # Field name made lowercase. This field type is a guess.
     grade = models.TextField(db_column=u'Grade', blank=True) # Field name made lowercase. This field type is a guess.
     program = models.TextField(db_column=u'Program', blank=True) # Field name made lowercase. This field type is a guess.

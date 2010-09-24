@@ -1,0 +1,125 @@
+{% extends 'dashboard/base.html' %}
+
+{% block pagetitle %}{{ student.id }}{% endblock %}
+{% block title %}Healey Statistics{% endblock %}
+
+
+
+
+{% block primary %}
+
+<ul>
+{% for c in data_columns.grade %}
+    <li>{{ c }}</li>
+{% endfor %}
+</ul>
+    
+<ul>
+    <li>Homeroom Teacher = {{ student.hr }}</li>
+    <li>Grade = {{ student.grade }}</li>
+    <li>Program? = {{ student.program }}</li>
+    <li>Attendance = {{ student.att }}</li>
+    <li>susp = {{ student.susp }}</li>
+    <li>ela = {{ student.ela }}</li>
+    <li>math = {{ student.math }}</li>
+    <li>field = {{ student.field }}</li>
+    <li>race = {{ student.race }}</li>
+    {% if student.ishisp %}
+        <li>is Hispanic</li>
+    {% endif %}
+    {% ifequal student.gen 'm' %}
+        <li>gen = {{ student.gen }}</li>
+    {% endifequal %}
+    <li>homelang = {{ student.homelang }}</li>
+    {% if student.sped %}
+        <li>Special Education = {{ student.sped }}</li>
+    {% endif %}
+    <li>lowincome = {{ student.lowincome }}</li>
+    <li>entrydate = {{ student.entrydate }}</li>
+    <li>entrygr = {{ student.entrygr }}</li>
+    <li>null2 = {{ student.null2 }}</li>
+    <li>dob1 = {{ student.dob1 }}</li>
+    <li>overage = {{ student.overage }}</li>
+    <li>null3 = {{ student.null3 }}</li>
+    <li>gkdibels = {{ student.gkdibels }}</li>
+    <li>g1dibels = {{ student.g1dibels }}</li>
+    <li>g2dibels = {{ student.g2dibels }}</li>
+    <li>null4 = {{ student.null4 }}</li>
+    <li>g3ela = {{ student.g3ela }}</li>
+    <li>g4ela = {{ student.g4ela }}</li>
+    <li>g5ela = {{ student.g5ela }}</li>
+    <li>g6ela = {{ student.g6ela }}</li>
+    <li>g7ela = {{ student.g7ela }}</li>
+    <li>null5 = {{ student.null5 }}</li>
+    <li>g3math = {{ student.g3math }}</li>
+    <li>g4math = {{ student.g4math }}</li>
+    <li>g5math = {{ student.g5math }}</li>
+    <li>g6math = {{ student.g6math }}</li>
+    <li>g7math = {{ student.g7math }}</li>
+    <li>null6 = {{ student.null6 }}</li>
+    <li>att2 = {{ student.att2 }}</li>
+    <li>null7 = {{ student.null7 }}</li>
+    <li>susp2 = {{ student.susp2 }}</li>
+    <li>null8 = {{ student.null8 }}</li>
+    <li>ml = {{ student.ml }}</li>
+    <li>eph = {{ student.eph }}</li>
+    <li>b_and_g = {{ student.b_and_g }}</li>
+    <li>aceit = {{ student.aceit }}</li>
+    <li>hatian = {{ student.hatian }}</li>
+    <li>has = {{ student.has }}</li>
+    <li>cs = {{ student.cs }}</li>
+    <li>aftsh = {{ student.aftsh }}</li>
+    <li>null9 = {{ student.null9 }}</li>
+    <li>grade2 = {{ student.grade2 }}</li>
+    <li>exit_date = {{ student.exit_date }}</li>
+    <li>id_local = {{ student.id_local }}</li>
+    <li>id_state = {{ student.id_state }}</li>
+    <li>dob2 = {{ student.dob2 }}</li>
+    <li>g3dibels = {{ student.g3dibels }}</li>
+    <li>g4grade = {{ student.g4grade }}</li>
+    <li>g5grade = {{ student.g5grade }}</li>
+    <li>g6grade = {{ student.g6grade }}</li>
+    <li>yog = {{ student.yog }}</li>
+    <li>question1 = {{ student.question1 }}</li>
+    <li>homeroom = {{ student.homeroom }}</li>
+    <li>entryyear = {{ student.entryyear }}</li>
+    <li>cohort = {{ student.cohort }}</li>
+    <li>g3ela1 = {{ student.g3ela1 }}</li>
+    <li>g4ela1 = {{ student.g4ela1 }}</li>
+    <li>g4ela2 = {{ student.g4ela2 }}</li>
+    <li>g5ela1 = {{ student.g5ela1 }}</li>
+    <li>g5ela2 = {{ student.g5ela2 }}</li>
+    <li>g6ela1 = {{ student.g6ela1 }}</li>
+    <li>g6ela2 = {{ student.g6ela2 }}</li>
+    <li>g7ela1 = {{ student.g7ela1 }}</li>
+    <li>g7ela2 = {{ student.g7ela2 }}</li>
+    <li>g3math2 = {{ student.g3math2 }}</li>
+    <li>g4math1 = {{ student.g4math1 }}</li>
+    <li>g4math2 = {{ student.g4math2 }}</li>
+    <li>g5math1 = {{ student.g5math1 }}</li>
+    <li>g5math2 = {{ student.g5math2 }}</li>
+    <li>g4grade1 = {{ student.g4grade1 }}</li>
+    <li>g5grade1 = {{ student.g5grade1 }}</li>
+    <li>g6grade1 = {{ student.g6grade1 }}</li>
+    <li>g4grade2 = {{ student.g4grade2 }}</li>
+    <li>g5grade2 = {{ student.g5grade2 }}</li>
+    <li>g6grade2 = {{ student.g6grade2 }}</li>
+    <li>x21st_cent = {{ student.x21st_cent }}</li>
+    <li>b_and_gclub = {{ student.b_and_gclub }}</li>
+    <li>eph1 = {{ student.eph1 }}</li>
+    <li>mysticlc = {{ student.mysticlc }}</li>
+    <li>ymca = {{ student.ymca }}</li>
+    <li>homeworkhelp = {{ student.homeworkhelp }}</li>
+    <li>hasclub = {{ student.hasclub }}</li>
+    <li>hasreading = {{ student.hasreading }}</li>
+    <li>hasmath = {{ student.hasmath }}</li>
+    <li>hasesl = {{ student.hasesl }}</li>
+    <li>schdayreading = {{ student.schdayreading }}</li>
+    <li>schdaymath = {{ student.schdaymath }}</li>
+    <li>schdayell = {{ student.schdayell }}</li>
+    <li>spedela = {{ student.spedela }}</li>
+    <li>spedmath = {{ student.spedmath }}</li>
+    <li>program1 = {{ student.program1 }}</li>
+    <li>hbase = {{ student.hbase }}</li>
+</ul>
+{% endblock %}
