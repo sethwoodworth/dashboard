@@ -1,0 +1,17 @@
+{% extends 'blog/base.html' %}
+
+{% block pagetitle %}Tumblevlogr{% endblock %}
+{% block title %}Blagposts!{% endblock %}
+
+{% block primary %}
+{%if object_list %}                                                                                        
+    <ul>
+    {% for object in object_list %}
+        <li><a href="/blog/{{ object.slug }}/">{{ object.slug }} -- {{ object.body_html|truncatewords_html:"20"|safe }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No polls are available.</p>
+{% endif %}
+
+{% endblock %}

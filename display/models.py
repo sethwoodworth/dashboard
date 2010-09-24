@@ -9,7 +9,7 @@
 
 from django.db import models
 
-class Speadsheet(models.Model):
+class Spreadsheet(models.Model):
     hr = models.TextField(db_column=u'HR', blank=True) # Field name made lowercase. This field type is a guess.
     grade = models.TextField(db_column=u'Grade', blank=True) # Field name made lowercase. This field type is a guess.
     program = models.TextField(db_column=u'Program', blank=True) # Field name made lowercase. This field type is a guess.
@@ -113,9 +113,7 @@ class Speadsheet(models.Model):
     spedmath = models.TextField(db_column=u'SpEdMath', blank=True) # Field name made lowercase. This field type is a guess.
     program1 = models.TextField(db_column=u'Program1', blank=True) # Field name made lowercase. This field type is a guess.
     hbase = models.TextField(db_column=u'HBase', blank=True) # Field name made lowercase. This field type is a guess.
-    class Meta:
-        db_table = u'speadsheet'
-
     def __unicode__(self):
-        return self.choice
-
+        return self.grade + ' ' + self.grade + ' ' + self.homeroom
+    class Meta:
+        db_table = u'school'
