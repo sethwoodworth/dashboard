@@ -1,0 +1,47 @@
+{% extends 'dashboard/base.html' %}
+
+{% block pagetitle %}{% endblock %}
+{% block title %}Healey Students by grade{% endblock %}
+
+
+
+
+{% block primary %}
+Testing, block primary
+<table><tr><td>test table</td></tr></table>
+
+{% for grade, grade_data in dict_rows.items %}
+<table>
+    <tr>
+        <td>Student ID</td> 
+        <td>Birthday</td> 
+        <td>Gender</td> 
+        <td>Program</td> 
+        <td>Homeroom Teacher</td> 
+        <td>Attendance</td> 
+        <td>Suspensions</td> 
+        <td>Math?</td> 
+        <td>ELA</td> 
+        <td>Home Language</td> 
+        <td>Race</td> 
+    </tr>
+    {% for student in grade_data %}
+    <tr>
+        <td>{{ student.id }}</td>
+        <td>{{ student.dob2 }}</td>
+        <td>{{ student.gen }}</td>
+        <td>{{ student.program }}</td>
+        <td>{{ student.hr }}</td>
+        <td>{{ student.att }} %</td>
+        <td>{{ student.susp }}</td>
+        <td>{{ student.math }}</td>
+        <td>{{ student.ela }}</td>
+        <td>{{ student.homelang }}</td>
+        <td>{{ student.race }}</td>
+   </tr>
+   {% endfor %}
+</table>
+
+{% endfor %}
+
+{% endblock %}
