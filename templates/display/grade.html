@@ -1,47 +1,76 @@
-{% extends 'dashboard/base.html' %}
+{% extends 'display/base.html' %}
 
 {% block pagetitle %}{% endblock %}
-{% block title %}Healey Students by grade{% endblock %}
+{% block title %}Healey Students by Grade{% endblock %}
 
 
 
 
 {% block primary %}
-Testing, block primary
-<table><tr><td>test table</td></tr></table>
-
-{% for grade, grade_data in dict_rows.items %}
-<table>
-    <tr>
-        <td>Student ID</td> 
-        <td>Birthday</td> 
-        <td>Gender</td> 
-        <td>Program</td> 
-        <td>Homeroom Teacher</td> 
-        <td>Attendance</td> 
-        <td>Suspensions</td> 
-        <td>Math?</td> 
-        <td>ELA</td> 
-        <td>Home Language</td> 
-        <td>Race</td> 
-    </tr>
-    {% for student in grade_data %}
-    <tr>
-        <td>{{ student.id }}</td>
-        <td>{{ student.dob2 }}</td>
-        <td>{{ student.gen }}</td>
-        <td>{{ student.program }}</td>
-        <td>{{ student.hr }}</td>
-        <td>{{ student.att }} %</td>
-        <td>{{ student.susp }}</td>
-        <td>{{ student.math }}</td>
-        <td>{{ student.ela }}</td>
-        <td>{{ student.homelang }}</td>
-        <td>{{ student.race }}</td>
-   </tr>
-   {% endfor %}
-</table>
-
+    {% for grade, grade_dict in dict_rows.items %}
+    <div class="section">
+        <h2><a name="grade {{ grade }}" href="#grade_{{ grade }}">Grade {{ grade }}</a></h2>
+        <div class="contents" style:"display: none">
+            <table class='spreadsheet'>
+                <thead>
+                    <tr>
+                        <td>Student ID</td> 
+                        <td>Birthday</td> 
+                        <td>Gender</td> 
+                        <td>Program</td> 
+                        <td>Homeroom Teacher</td> 
+                        <td>Attendance</td> 
+                        <td>Suspensions</td> 
+                        <td>Math?</td> 
+                        <td>ELA</td> 
+                        <td>Home Language</td> 
+                        <td>Race</td> 
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for student in grade_dict %}
+                    <tr class={% cycle '' 'row2' %}>
+                        <td>{{ student.id }}</td>
+                        <td>{{ student.dob2 }}</td>
+                        <td>{{ student.gen }}</td>
+                        <td>
+                            {% ifequal student.program 'Nb' %}
+                                Neighborhood
+                                {% else %}{% ifequal student.program 'Ch' %}
+                                    Choice
+                                    {% else %}
+                                        {{ student.program }}
+                            {% endifequal %}
+                            {% endifequal %}
+                        </td>
+                        <td>{{ student.hr }}</td>
+                        <td>{{ student.att }} %</td>
+                        <td>{{ student.susp }}</td>
+                        <td>{{ student.math }}</td>
+                        <td>{{ student.ela }}</td>
+                        <td>{{ student.homelang }}</td>
+                        <td>{{ student.race }}</td>
+                   </tr>
+                   {% endfor %}
+               </tbody>
+                <tfoot>
+                    <tr>
+                        <td>Student ID</td> 
+                        <td>Birthday</td> 
+                        <td>Gender</td> 
+                        <td>Program</td> 
+                        <td>Homeroom Teacher</td> 
+                        <td>Attendance</td> 
+                        <td>Suspensions</td> 
+                        <td>Math?</td> 
+                        <td>ELA</td> 
+                        <td>Home Language</td> 
+                        <td>Race</td> 
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
 {% endfor %}
 
 {% endblock %}
