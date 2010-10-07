@@ -3,6 +3,126 @@ from dashboard.display.models import Spreadsheet
 from django.http import HttpResponse
 from django.template import Context, loader
 from pygooglechart import PieChart2D
+from pygooglechart import ScatterChart
+from pylab import *
+import etframes
+
+
+def grade(request):
+    years = ['01', '02', '03', '04', '05', '06', '07', '08']
+    dict_rows = {}
+    for grade in sorted(years):
+        dict_rows[grade] = Spreadsheet.objects.filter(grade=grade).values()
+        #for row in students:
+            #dict_rows[grade].append(row)
+        #dict_class = {}
+        #for x in dict_rows[0]:
+            #dict_class[x] = []
+        #for y in dict_rows:
+    return render_to_response('display/grade.html', 
+            {'dict_rows': dict_rows})
+
+def graph_all(request):
+    birthdays = Spreadsheet.objects.order_by('dob2').exclude(dob2='').all()
+    students = []
+    lang_list = [
+            ('Amharic / Ethiopian', 'grey'),
+            ('Arabic', 'grey'),
+            ('Bengali', 'grey'),
+            ('Cape Verdean', 'grey'),
+            ('Creole(Haitian)', 'purple'),
+            ('Dutch', 'grey'),
+            ('English', 'green'),
+            ('Farsi', 'grey'),
+            ('French', 'red'),
+            ('German', 'grey'),
+            ('Nepali', 'grey'),
+            ('Other', 'grey'),
+            ('Portuguese', 'yellow'),
+            ('Punjabi', 'grey'),
+            ('Russian', 'grey'),
+            ('Serbo-Croatian', 'grey'),
+            ('Somali', 'grey'),
+            ('Spanish', 'orange'),
+            ('Swedish', 'grey'),
+            ('Tamil', 'grey'),
+            ('Thai', 'grey'),
+            ('Tibetan', 'grey'),
+            ('Tigre / Ethiopian', 'grey'),
+            ('Turkish', 'grey'),
+            ('Vietnamese', 'grey'),
+            ]
+
+    for student in birthdays:
+        s = {}
+        # Student stats
+        s['dob'] = student.dob2
+        s['homelang'] = student.homelang
+        s['att'] = student.att2
+        # English language score
+        if student.g7ela:
+            s['ela'] = int(student.g7ela)
+        elif student.g6ela:
+            s['ela'] = int(student.g6ela)
+        elif student.g5ela:
+            s['ela'] = int(student.g5ela)
+        elif student.g4ela:
+            s['ela'] = int(student.g4ela)
+        else:
+            s['ela'] = ''
+
+        # Math test score
+        if student.g7math:
+            s['math'] = int(student.g7math)
+        elif student.g6math:
+            s['math'] = int(student.g6math)
+        elif student.g5math:
+            s['math'] = int(student.g5math)
+        elif student.g4math:
+            s['math'] = int(student.g4math)
+        else:
+            s['math'] = ''
+
+        
+        for x in lang_list:
+            if s['homelang'] == x[0]:
+                s['homelang'] = x[1]
+            else:
+                s['homelang'] = 'grey'
+
+
+        if s['math'] and s['ela']:
+             students.append(s)
+
+    # Scatter graph
+    x = []
+    y = []
+    z = []
+    for s in students:
+        x.append(s['math'])
+        y.append(s['ela'])
+        z.append(s['homelang'])
+
+
+
+    chart = ScatterChart(500, 400, x_range=(int(sorted(x)[0] - 10), int(sorted(x)[-1]) + 10), y_range=(int(sorted(y)[0] - 10), int(sorted(y)[-1]+10)))
+    chart.add_data(x)
+    chart.add_data(y)
+    scatter = {}
+    scatter['url'] = chart.get_url()
+
+    graph = []
+    graph.append(scatter)
+
+    #scatter(x,y,c=z)
+    #etframes.add_dot_dash_plot(gca(), ys=y, xs=x)
+
+
+
+    return render_to_response('display/graph_all.html', {'students': students, 'graphs': graph })
+
+
+
 
 
 def login(request):
@@ -31,19 +151,6 @@ def stats(request):
 def sample(request):
     return render_to_response('dashboard/sample.html')
 
-def grade(request):
-    years = ['01', '02', '03', '04', '05', '06', '07', '08']
-    dict_rows = {}
-    for grade in years:
-        dict_rows[grade] = []
-        students = Spreadsheet.objects.filter(grade=grade).values()
-        for row in students:
-            dict_rows[grade].append(row)
-        #dict_class = {}
-        #for x in dict_rows[0]:
-            #dict_class[x] = []
-        #for y in dict_rows:
-    return render_to_response('dashboard/grade.html', {'dict_rows': dict_rows})
 
 
 
