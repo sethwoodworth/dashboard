@@ -1,12 +1,18 @@
 from django.shortcuts import render_to_response
-from dashboard.display.models import Spreadsheet
 from django.http import HttpResponse
 from django.template import Context, loader
+
+from dashboard.display.models import Spreadsheet, Student
+
 from pygooglechart import PieChart2D
 from pygooglechart import ScatterChart
 from pylab import *
 import etframes
 
+
+def students(request):
+    records = Student.objects.all()
+    return render_to_response('display/students.html', {'students': records})
 
 def grade(request):
     years = ['01', '02', '03', '04', '05', '06', '07', '08']
@@ -109,7 +115,8 @@ def graph_all(request):
     chart.add_data(x)
     chart.add_data(y)
     scatter = {}
-    scatter['url'] = chart.get_url()
+    scatter['math_x_ela'] = chart.get_url()
+    
 
     graph = []
     graph.append(scatter)
