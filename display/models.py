@@ -118,6 +118,8 @@ class Student(models.Model):
     attn_jan = models.IntegerField()
     grade = models.IntegerField()
     homelang = models.TextField()
+    def __unicode__(self):
+        return str(self.id)
 
 class StudentClass(models.Model):
     student = models.ForeignKey(Student)
@@ -126,6 +128,8 @@ class StudentClass(models.Model):
     class_goal = models.IntegerField()
     class_credits = models.IntegerField()
     class_grade = models.IntegerField()
+    def __unicode__(self):
+        return self.class_name
 
 class Supporter(models.Model):
     student = models.ForeignKey(Student)

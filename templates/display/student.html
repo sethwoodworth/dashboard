@@ -1,0 +1,66 @@
+
+{% extends 'display/base.html' %}
+
+{% block pagetitle %}{% endblock %}
+
+
+
+
+
+{% block primary %}
+
+<div class="section" style="text-align:right;"><h2 style="">{{ student.name|default:"Sample Name" }}, <strong>Class of {{ student.yog|default:2013 }}</strong>&nbsp&nbsp&nbsp&nbsp</h2></div>
+
+<div class="report">
+    <div class="row">
+
+        <div class="percent-box">
+            <div style="height:100%;">
+                <h2 style="text-align: center; margin: 0 auto;">{{ attn_ave }}</h2>
+            </div>
+            <div class="small" style="margin: 0;vertical-align:bottom; background: grey; height 7px;">
+                Goal: 90% or higher
+            </div>
+        </div>
+
+        <div class="inline-table">
+            <table class="inline-table">
+                <thead>
+                    <tr>
+                        <td>September</td> 
+                        <td>October</td> 
+                        <td>November</td> 
+                        <td>December</td> 
+                        <td>January</td> 
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class={% cycle '' 'row2' %} style="text-align:center;">
+                        <td>{{ student.attn_sept }}%</td>
+                        <td>{{ student.attn_oct }}%</td>
+                        <td>{{ student.attn_nov }}%</td>
+                        <td>{{ student.attn_dec }}%</td>
+                        <td>{{ student.attn_jan }}%</td>
+                   </tr>
+               </tbody>
+            </table>
+        </div> 
+        <div class="subtitle">
+            <h3>Attendance:</h3>
+        </div>
+    </div>
+    <hr/>
+
+
+        <div class="percent-box">
+            <div style="height:100%;">
+                <h2 style="text-align: center; margin: 0 auto;">{{ attn_ave }}</h2>
+            </div>
+            <div class="small" style="margin: 0;vertical-align:bottom; background: grey; height 7px;">
+                Goal: 90% or higher
+            </div>
+        </div>
+
+</div>
+
+{% endblock %}

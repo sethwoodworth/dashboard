@@ -93,13 +93,21 @@ caption {background:#eee;}
 html { overflow-y: scroll; }
 
 .container {
-    background: none #ffffff;
+    background: #ffffff;
     margin: 10px auto;
-    padding: 5px;
     width: 760px;
 }
 
+#push {
+    height: 160px;
+    width: 210px;
+    background: #fff;
+    float: left;
+}
+
 .header h1 { font-size: 3.5em; color: #503e2b; }
+.section h2 { padding-left: 5px; background-color: #eee; cursor: pointer;}
+.section h2 a { color: #503e2b; text-decoration:none; display: block; }
 
 div#menu { margin-bottom: 10px; }
 
@@ -112,8 +120,40 @@ div#menu { margin-bottom: 10px; }
 
 .spreadsheet { background-color : #DFEAEC }
 
-.section h2 { padding-left: 5px; background-color: #eee; cursor: pointer;}
-.section h2 a { color: #503e2b; text-decoration:none; display: block; }
+/* report card */
+.row{
+    overflow:hidden;
+}
+.report{
+    margin-left: 150px;
+    background: #fff;
+    position:relative;
+}
+.subtitle {
+    position:absolute;
+}
+.percent-box {
+    margin: 25px;
+    background: yellow;
+    height: 75px;
+    width: 100px;
+    float: left;
+}
+
+.inline-table {
+    float:right;
+    display: inline-block;
+    position: relative;
+    margin: 35px 15px 0 0
+    }
+.inline-table div {
+    }
+.inline-table table{ 
+    background-color : #DFEAEC ;
+    margin: 0;
+
+    }
+
 
 .row1 {  }
 .row2 { background-color : #D1F6FB }
