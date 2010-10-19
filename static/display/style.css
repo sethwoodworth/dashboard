@@ -151,9 +151,15 @@ div#menu { margin-bottom: 10px; }
 .inline-table table{ 
     background-color : #DFEAEC ;
     margin: 0;
-
     }
+.inline-table thead{
+    font-style: bold;
+}
 
 
 .row1 {  }
 .row2 { background-color : #D1F6FB }
+
+hr {
+    
+}

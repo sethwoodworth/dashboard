@@ -4,8 +4,7 @@ from django.template import Context, loader
 
 from dashboard.display.models import Spreadsheet, Student, StudentClass
 
-from pygooglechart import PieChart2D
-from pygooglechart import ScatterChart
+from pygooglechart import PieChart2D, ScatterChart, StackedVerticalBarChart
 from pylab import *
 import etframes
 
@@ -18,8 +17,21 @@ def student(request, student_id):
     record = Student.objects.get(pk=student_id)
     attn_list = [int(record.attn_sept), int(record.attn_oct), int(record.attn_nov), int(record.attn_dec), int(record.attn_jan)]
     attn_ave = sum(attn_list)/len(attn_list)
+    attn_q = [a-50 for a in attn_list]
+
     grades = StudentClass.objects.filter(student=student_id).all()
-    return render_to_response('display/student.html', {'student': record, 'attn_ave': attn_ave, 'grades': grades})
+    goal_list = []
+    for goal in grades:
+        goal_list.append(int(goal.class_goal))
+    grade_goal = sum(goal_list)/7
+    grade_list = []
+    for grade in grades:
+        grade_list.append(int(grade.class_grade))
+    grade_ave = sum(grade_list)/7
+
+
+
+    return render_to_response('display/student.html', {'student': record, 'attn_ave': attn_ave, 'grades': grades, 'grade_goal': grade_goal, 'grade_ave': grade_ave})
 
 def grade(request):
     years = ['01', '02', '03', '04', '05', '06', '07', '08']

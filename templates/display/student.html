@@ -16,7 +16,7 @@
 
         <div class="percent-box">
             <div style="height:100%;">
-                <h2 style="text-align: center; margin: 0 auto;">{{ attn_ave }}</h2>
+                <h2 style="text-align: center; margin: 0 auto;">{{ attn_ave }} %</h2>
             </div>
             <div class="small" style="margin: 0;vertical-align:bottom; background: grey; height 7px;">
                 Goal: 90% or higher
@@ -45,21 +45,90 @@
                </tbody>
             </table>
         </div> 
+
         <div class="subtitle">
             <h3>Attendance:</h3>
         </div>
     </div>
     <hr/>
+    <div class="row">
+        <div class="percent-box">
+            <div style="height:100%;">
+                <h2 style="text-align: center; margin: 0 auto;">{{ grade_ave|default:'??' }} %</h2>
+            </div>
+            <div class="small" style="margin: 0;vertical-align:bottom; background: grey; height 7px;">
+                Goal: {{ grade_goal|default:90 }}% or higher
+            </div>
+        </div>
 
+        <div class="inline-table">
+            <table class="inline-table">
+                <thead>
+                    <tr>
+                        <td><strong>Class</strong></td> 
+                        <td><strong>Teacher</strong></td> 
+                        <td><strong>Goal</strong></td> 
+                        <td><strong>Credits</strong></td> 
+                        <td><strong>Grade</strong></td> 
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for class in grades %}
+                    <tr class={% cycle '' 'row2' %} style="text-align:center;">
+                        <td>{{ class.class_name }}</td>
+                        <td>{{ class.class_teach }}</td>
+                        <td>{{ class.class_goal }}</td>
+                        <td>{{ class.class_credits }}</td>
+                        <td bgcolor="#{{ class.class_grade }}ffff">{{ class.class_grade }}</td>
+                   </tr>
+                   {% endfor %}
+               </tbody>
+            </table>
+        </div> 
+
+        <div class="subtitle">
+            <h3>Grades:</h3>
+        </div>
+    </div>
+    <hr/>
+    <div class="row">
 
         <div class="percent-box">
             <div style="height:100%;">
-                <h2 style="text-align: center; margin: 0 auto;">{{ attn_ave }}</h2>
+                <h2 style="text-align: center; margin: 0 auto;">{{ attn_ave }} %</h2>
             </div>
             <div class="small" style="margin: 0;vertical-align:bottom; background: grey; height 7px;">
                 Goal: 90% or higher
             </div>
         </div>
+
+        <div class="inline-table">
+            <table class="inline-table">
+                <thead>
+                    <tr>
+                        <td>September</td> 
+                        <td>October</td> 
+                        <td>November</td> 
+                        <td>December</td> 
+                        <td>January</td> 
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class={% cycle '' 'row2' %} style="text-align:center;">
+                        <td>{{ student.attn_sept }}%</td>
+                        <td>{{ student.attn_oct }}%</td>
+                        <td>{{ student.attn_nov }}%</td>
+                        <td>{{ student.attn_dec }}%</td>
+                        <td>{{ student.attn_jan }}%</td>
+                   </tr>
+               </tbody>
+            </table>
+        </div> 
+
+        <div class="subtitle">
+            <h3>Attendance graph:</h3>
+        </div>
+    </div>
 
 </div>
 
