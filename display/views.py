@@ -14,11 +14,17 @@ def students(request):
     return render_to_response('display/students.html', {'students': records})
 
 def student(request, student_id):
+    # query general student data
     record = Student.objects.get(pk=student_id)
+
+    ## Attendance
+    # grab attendance-month summaries from general data
     attn_list = [int(record.attn_sept), int(record.attn_oct), int(record.attn_nov), int(record.attn_dec), int(record.attn_jan)]
     attn_ave = sum(attn_list)/len(attn_list)
     attn_q = [a-50 for a in attn_list]
 
+    ## Grades
+    # Retreive and calculate this-semester grade data and goals
     grades = StudentClass.objects.filter(student=student_id).all()
     goal_list = []
     for goal in grades:
@@ -28,6 +34,11 @@ def student(request, student_id):
     for grade in grades:
         grade_list.append(int(grade.class_grade))
     grade_ave = sum(grade_list)/7
+
+    ## Credits
+    credits = {}
+    credits['passed'] = ['eng1', 'alge1a', 'pre-bio', 'ushis1', 'health']
+    credits['f_total'] = sum([x for x in grades['class_credits']])
 
 
 
