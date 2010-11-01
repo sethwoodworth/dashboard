@@ -90,12 +90,13 @@ caption {background:#eee;}
 
 /* overrides */
 
-html { overflow-y: scroll; }
+html {}
 
 .container {
-    background: #ffffff;
+    background-color: #ffffff;
     margin: 10px auto;
     width: 760px;
+    height: auto;
 }
 
 #push {
@@ -122,7 +123,6 @@ div#menu { margin-bottom: 10px; }
 
 /* report card */
 .row{
-    overflow:hidden;
 }
 .report{
     margin-left: 150px;
@@ -160,6 +160,9 @@ div#menu { margin-bottom: 10px; }
 .row1 {  }
 .row2 { background-color : #D1F6FB }
 
-hr {
-    
-}
+#wrapper { background-color: #fff }
+
+.title { margin-top: 20px }
+
+.grid_8 table
+.t_grid { width:30px; border: 2px solid #D1F6FB; padding: 0px; }

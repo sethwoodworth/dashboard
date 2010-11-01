@@ -1,0 +1,228 @@
+
+{% extends 'display/base.html' %}
+
+{% block pagetitle %}ISSP{% endblock %}
+
+
+
+
+
+{% block primary %}
+
+<div class="section" style="text-align:right;"><h2 style="">{{ student.name|default:"Johnny Sample" }}, <strong>Class of {{ student.yog|default:2013 }}</strong>&nbsp&nbsp&nbsp&nbsp</h2></div>
+
+<div class="prefix_2 grid_8">
+    <form>
+    <div class="row grid_8">
+        <div class="grid_4 alpha">
+            <h3>1. Identifying information</h3>
+            <input type="checkbox" name="ISSP" value="yes" /> ISSP <br />
+            <input type="checkbox" name="ELL" value="no" /> ELL <br />
+            Safety Net:  <input type="checkbox" name="Safety Net" value="Math" /> Math <input type="checkbox" name="Safety Net" value="ELA" /> ELA
+        </div>
+
+        <div class="grid_4  omega">
+            <h3>2. School Contacts</h3>
+            {# Implementation date means /today/? #}
+            Implementation date: <input type="textfield" name="implementation" value="{{ today|date:"d/m/Y" }}" /><br />
+            Advisor Teacher: <input type="textfield" name="implementation" value="{{ teacher }}" /> Guidance Counselor: <input type="textfield" name="implementation" value="{{ Counselor|default:"Mr. Roy" }}" />
+        </div>
+    </div>
+    <hr/>
+
+    <div class="grid_8 title">
+        <h3>3. Assessment Information</h3>
+    </div>
+    <div class="grid_8">
+        <div class="grid_4 alpha" style="">
+            <strong>Math</strong> <br />
+            Sept. Galileo scores. {{ scores.math.sept|default:"225"}}<br />
+            Jan. Galileo scores. {{ scores.math.jan }}<br />
+            Apr. Galileo scores. {{ scores.math.apr }}<br />
+            Other tests: <input type="textfield" name="other_test_1"/> <br />
+            Other tests: <input type="textfield" name="other_test_2"/>
+        </div>
+        <div class="grid_4 omega" style="">
+            <strong>ELA</strong> <br />
+            Sept. Galileo scores. {{ scores.ela.sept|default:"225"}}<br />
+            Jan. Galileo scores. {{ scores.ela.jan }}<br />
+            Apr. Galileo scores. {{ scores.ela.apr }}<br />
+            Other tests: <input type="textfield" name="other_test_3"/> <br />
+            Other tests: <input type="textfield" name="other_test_4"/> 
+        </div>
+    </div>
+
+    <div class="grid_8 title">
+        <h3 style="display:inline">4. Priority Areas of Concern</h3> (see MCAS Scores)
+    </div>
+    <div class="grid_8">
+        <div class="grid_4 alpha" style="">
+            <strong>Math</strong><br />
+            <input type="checkbox" name="area_concerns" value="Number Sense" /> Number Sense<br />
+            <input type="checkbox" name="area_concerns" value="Patterns/Relations" /> Patterns/Relations<br />
+            <input type="checkbox" name="area_concerns" value="Geometry" /> Geometry<br />
+            <input type="checkbox" name="area_concerns" value="Statistics/Probability" /> Statistics/Probability<br />
+            <input type="checkbox" name="area_concerns" value="Measurement" /> Measurement<br />
+            <input type="checkbox" name="area_concerns" value="Short Answer" /> Short Answer<br />
+            <input type="checkbox" name="area_concerns" value="Open Response" /> Open Response<br />
+        </div>
+        <div class="grid_4 omega" style="">
+            <strong>Writing</strong><br />
+            <input type="checkbox" name="area_concerns" value="Topic Development" /> Topic Development<br />
+            <input type="checkbox" name="area_concerns" value="Conventions" /> Conventions<br />
+            <strong>Reading</strong><br />
+            <input type="checkbox" name="area_concerns" value="Language" /> Language<br />
+            <input type="checkbox" name="area_concerns" value="Literature" /> Literature<br />
+            <input type="checkbox" name="area_concerns" value="Open Response" /> Open Response<br />
+        </div>
+    </div>
+    <div class="grid_8" style="margin-top:10px">
+        Other descriptive information (strengths, learning needs, etc.)
+    </div>
+    <div class="grid_8">
+        <div class="grid_4 alpha" style="">
+            <input type="textfield" name="math_concern_1"/><br />
+            <input type="textfield" name="math_concern_2"/><br />
+            <input type="textfield" name="math_concern_3"/><br />
+            <input type="textfield" name="math_concern_4"/><br />
+        </div>
+        <div class="grid_4 omega" style="">
+            <input type="textfield" name="ela_concern_1"/><br />
+            <input type="textfield" name="ela_concern_2"/><br />
+            <input type="textfield" name="ela_concern_3"/><br />
+            <input type="textfield" name="ela_concern_4"/><br />
+        </div>
+    </div>
+
+    <div class="grid_8 title">
+        <h3>5. Interventions</h3>
+    </div>
+    <div class="grid_8">
+        <table>
+            <thead>
+                <tr>
+                    <td>Provider</td>
+                    <td>Aug.</td>
+                    <td>Sept.</td>
+                    <td>Oct.</td>
+                    <td>Nov.</td>
+                    <td>Dec.</td>
+                    <td>Jan.</td>
+                    <td>Feb.</td>
+                    <td>Mar.</td>
+                    <td>Apr.</td>
+                    <td>May</td>
+                    <td>June</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Lexia</td>
+                    <td><input class="t_grid t_grid" type="textfield" name="lexia_MO"/></td>
+                    <td><input class="t_grid t_grid" type="textfield" name="lexia_MO"/></td>
+                    <td><input class="t_grid t_grid" type="textfield" name="lexia_MO"/></td>
+                    <td><input class="t_grid t_grid" type="textfield" name="lexia_MO"/></td>
+                    <td><input class="t_grid t_grid" type="textfield" name="lexia_MO"/></td>
+                    <td><input class="t_grid t_grid" type="textfield" name="lexia_MO"/></td>
+                    <td><input class="t_grid t_grid" type="textfield" name="lexia_MO"/></td>
+                    <td><input class="t_grid t_grid" type="textfield" name="lexia_MO"/></td>
+                    <td><input class="t_grid t_grid" type="textfield" name="lexia_MO"/></td>
+                    <td><input class="t_grid t_grid" type="textfield" name="lexia_MO"/></td>
+                    <td><input class="t_grid t_grid" type="textfield" name="lexia_MO"/></td>
+                    <td><input class="t_grid t_grid" type="textfield" name="lexia_MO"/></td>
+                </tr>
+                <tr>
+                    <td>Raz</td>
+                    <td><input class="t_grid t_grid" type="textfield" name="lexia_MO"/></td>
+                    <td><input class="t_grid t_grid" type="textfield" name="lexia_MO"/></td>
+                    <td><input class="t_grid t_grid" type="textfield" name="lexia_MO"/></td>
+                    <td><input class="t_grid t_grid" type="textfield" name="lexia_MO"/></td>
+                    <td><input class="t_grid t_grid" type="textfield" name="lexia_MO"/></td>
+                    <td><input class="t_grid t_grid" type="textfield" name="lexia_MO"/></td>
+                    <td><input class="t_grid t_grid" type="textfield" name="lexia_MO"/></td>
+                    <td><input class="t_grid t_grid" type="textfield" name="lexia_MO"/></td>
+                    <td><input class="t_grid t_grid" type="textfield" name="lexia_MO"/></td>
+                    <td><input class="t_grid t_grid" type="textfield" name="lexia_MO"/></td>
+                    <td><input class="t_grid t_grid" type="textfield" name="lexia_MO"/></td>
+                    <td><input class="t_grid t_grid" type="textfield" name="lexia_MO"/></td>
+                </tr>
+                <tr>
+                    <td>Math Connectors</td>
+                    <td><input class="t_grid t_grid" type="textfield" name="lexia_MO"/></td>
+                    <td><input class="t_grid t_grid" type="textfield" name="lexia_MO"/></td>
+                    <td><input class="t_grid t_grid" type="textfield" name="lexia_MO"/></td>
+                    <td><input class="t_grid t_grid" type="textfield" name="lexia_MO"/></td>
+                    <td><input class="t_grid t_grid" type="textfield" name="lexia_MO"/></td>
+                    <td><input class="t_grid t_grid" type="textfield" name="lexia_MO"/></td>
+                    <td><input class="t_grid t_grid" type="textfield" name="lexia_MO"/></td>
+                    <td><input class="t_grid t_grid" type="textfield" name="lexia_MO"/></td>
+                    <td><input class="t_grid t_grid" type="textfield" name="lexia_MO"/></td>
+                    <td><input class="t_grid t_grid" type="textfield" name="lexia_MO"/></td>
+                    <td><input class="t_grid t_grid" type="textfield" name="lexia_MO"/></td>
+                    <td><input class="t_grid t_grid" type="textfield" name="lexia_MO"/></td>
+                </tr>
+                <tr>
+                    <td>RISE</td>
+                    <td><input class="t_grid t_grid" type="textfield" name="lexia_MO"/></td>
+                    <td><input class="t_grid t_grid" type="textfield" name="lexia_MO"/></td>
+                    <td><input class="t_grid t_grid" type="textfield" name="lexia_MO"/></td>
+                    <td><input class="t_grid t_grid" type="textfield" name="lexia_MO"/></td>
+                    <td><input class="t_grid t_grid" type="textfield" name="lexia_MO"/></td>
+                    <td><input class="t_grid t_grid" type="textfield" name="lexia_MO"/></td>
+                    <td><input class="t_grid t_grid" type="textfield" name="lexia_MO"/></td>
+                    <td><input class="t_grid t_grid" type="textfield" name="lexia_MO"/></td>
+                    <td><input class="t_grid t_grid" type="textfield" name="lexia_MO"/></td>
+                    <td><input class="t_grid t_grid" type="textfield" name="lexia_MO"/></td>
+                    <td><input class="t_grid t_grid" type="textfield" name="lexia_MO"/></td>
+                    <td><input class="t_grid t_grid" type="textfield" name="lexia_MO"/></td>
+                </tr>
+                <tr>
+                    <td>Galileo</td>
+                    <td><input class="t_grid t_grid" type="textfield" name="lexia_MO"/></td>
+                    <td><input class="t_grid t_grid" type="textfield" name="lexia_MO"/></td>
+                    <td><input class="t_grid t_grid" type="textfield" name="lexia_MO"/></td>
+                    <td><input class="t_grid t_grid" type="textfield" name="lexia_MO"/></td>
+                    <td><input class="t_grid t_grid" type="textfield" name="lexia_MO"/></td>
+                    <td><input class="t_grid t_grid" type="textfield" name="lexia_MO"/></td>
+                    <td><input class="t_grid t_grid" type="textfield" name="lexia_MO"/></td>
+                    <td><input class="t_grid t_grid" type="textfield" name="lexia_MO"/></td>
+                    <td><input class="t_grid t_grid" type="textfield" name="lexia_MO"/></td>
+                    <td><input class="t_grid t_grid" type="textfield" name="lexia_MO"/></td>
+                    <td><input class="t_grid t_grid" type="textfield" name="lexia_MO"/></td>
+                    <td><input class="t_grid t_grid" type="textfield" name="lexia_MO"/></td>
+                </tr>
+                <tr>
+                    <td>After School Program</td>
+                    <td><input class="t_grid t_grid" type="textfield" name="lexia_MO"/></td>
+                    <td><input class="t_grid t_grid" type="textfield" name="lexia_MO"/></td>
+                    <td><input class="t_grid t_grid" type="textfield" name="lexia_MO"/></td>
+                    <td><input class="t_grid t_grid" type="textfield" name="lexia_MO"/></td>
+                    <td><input class="t_grid t_grid" type="textfield" name="lexia_MO"/></td>
+                    <td><input class="t_grid t_grid" type="textfield" name="lexia_MO"/></td>
+                    <td><input class="t_grid t_grid" type="textfield" name="lexia_MO"/></td>
+                    <td><input class="t_grid t_grid" type="textfield" name="lexia_MO"/></td>
+                    <td><input class="t_grid t_grid" type="textfield" name="lexia_MO"/></td>
+                    <td><input class="t_grid t_grid" type="textfield" name="lexia_MO"/></td>
+                    <td><input class="t_grid t_grid" type="textfield" name="lexia_MO"/></td>
+                    <td><input class="t_grid t_grid" type="textfield" name="lexia_MO"/></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+        
+
+
+    </form>
+
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <hr/>
+    <hr/>
+
+</div>
+
+{% endblock %}

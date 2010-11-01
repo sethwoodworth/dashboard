@@ -4,6 +4,9 @@ from django.template import Context, loader
 
 from dashboard.display.models import Spreadsheet, Student, StudentClass
 
+import datetime
+from random import randint
+
 from pygooglechart import PieChart2D, ScatterChart, StackedVerticalBarChart
 from pylab import *
 import etframes
@@ -38,11 +41,32 @@ def student(request, student_id):
     ## Credits
     credits = {}
     credits['passed'] = ['eng1', 'alge1a', 'pre-bio', 'ushis1', 'health']
-    credits['f_total'] = sum([x for x in grades['class_credits']])
+    credits['f_total'] = sum([x for x in grades.class_credits])
 
 
 
     return render_to_response('display/student.html', {'student': record, 'attn_ave': attn_ave, 'grades': grades, 'grade_goal': grade_goal, 'grade_ave': grade_ave})
+
+def issp(request, student_id=1):
+    # Return what existing that we hvae
+    record = Student.objects.get(pk=student_id)
+    the_class = StudentClass.objects.filter(student=record.pk)[0]
+    adv_teacher = the_class.class_teach # guessing first() teacher the Advisor
+
+    # Random values as placeholders for database stores
+    galileo = {
+            'math': {
+                'sept': randint(210,250),
+                'jan': randint(210,250),
+                'apr': randint(210,250),
+                },
+            'ela':{
+                'sept': randint(210,250),
+                'jan': randint(210,250),
+                'apr': randint(210,250)}
+            }
+
+    return render_to_response('display/issp.html', {'today': datetime.datetime.now(), 'advisor': adv_teacher, 'scores': galileo,})
 
 def grade(request):
     years = ['01', '02', '03', '04', '05', '06', '07', '08']
