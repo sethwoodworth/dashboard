@@ -54,19 +54,40 @@ def issp(request, student_id=1):
         adv_teacher = "Ms. Simmons"
 
     # Random values as placeholders for database stores
-    galileo = {
-            'math': {
-                'sept': randint(210,250),
-                'jan': randint(210,250),
-                'apr': randint(210,250),
-                },
-            'ela':{
-                'sept': randint(210,250),
-                'jan': randint(210,250),
-                'apr': randint(210,250)}
+    scores = {
+            'Language': [
+                ('Composing / Writing Process', randint(160,240)),
+                ('Composition Structure', randint(160,240)),
+                ('Basic Grammar and Usage', randint(160,240)),
+                ('Punctuation', randint(160,240)),
+                ('Capitalization', randint(160,240)),
+                ],
+            'Reading': [
+                ('Word Recognition and Vocabulary', randint(160,240)),
+                ('Reading Comprehension-Literal', randint(160,240)),
+                ('Reading Comp.-Inferential', randint(160,240)),
+                ('Reading Comp.-Evaluation', randint(160,240)),
+                ('Literary Response and Analysis', randint(160,240)),
+                ],
+            'Math': [
+                ('Number Sense', randint(160,240)),
+                ('Estimation and Computation', randint(160,240)),
+                ('Algebra', randint(160,240)),
+                ('Geometry', randint(160,240)),
+                ('Measurement', randint(160,240)),
+                ('Statistics and Probability', randint(160,240)),
+                ('Problem Solving and Proofs', randint(160,240)),
+                ],
+            'Science': [
+                ('Unifying Concepts of Science', randint(180,250)),
+                ('Scientific Inquiry', randint(180,250)),
+                ('Life Sciences', randint(180,250)),
+                ('Earth/Space Sciences', randint(180,250)),
+                ('Physical Sciences', randint(180,250)),
+                ],
             }
 
-    return render_to_response('display/issp.html', {'today': datetime.datetime.now(), 'advisor': adv_teacher, 'scores': galileo,})
+    return render_to_response('display/issp.html', {'today': datetime.datetime.now(), 'advisor': adv_teacher, 'scores': scores})
 
 def grade(request):
     years = ['01', '02', '03', '04', '05', '06', '07', '08']
