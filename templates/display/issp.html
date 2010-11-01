@@ -33,24 +33,20 @@
     <div class="grid_8 title">
         <h3>3. Assessment Information</h3>
     </div>
-    <div class="grid_8">
-        <div class="grid_4 alpha" style="">
-            <strong>Math</strong> <br />
-            Sept. Galileo scores. {{ scores.math.sept|default:"225"}}<br />
-            Jan. Galileo scores. {{ scores.math.jan }}<br />
-            Apr. Galileo scores. {{ scores.math.apr }}<br />
-            Other tests: <input type="textfield" name="other_test_1"/> <br />
-            Other tests: <input type="textfield" name="other_test_2"/>
+        {% for test, list in scores.items %}
+        <div class="grid_4" style="">
+            <strong>{{ test }}</strong> <br />
+            {% for name, value in list %}
+            {{ name }}: {{ value }} <br />
+            {% endfor %}
         </div>
+        {% endfor %}
+
         <div class="grid_4 omega" style="">
             <strong>ELA</strong> <br />
-            Sept. Galileo scores. {{ scores.ela.sept|default:"225"}}<br />
-            Jan. Galileo scores. {{ scores.ela.jan }}<br />
-            Apr. Galileo scores. {{ scores.ela.apr }}<br />
             Other tests: <input type="textfield" name="other_test_3"/> <br />
             Other tests: <input type="textfield" name="other_test_4"/> 
         </div>
-    </div>
 
     <div class="grid_8 title">
         <h3 style="display:inline">4. Priority Areas of Concern</h3> (see MCAS Scores)
@@ -81,16 +77,12 @@
     </div>
     <div class="grid_8">
         <div class="grid_4 alpha" style="">
-            <input type="textfield" name="math_concern_1"/><br />
-            <input type="textfield" name="math_concern_2"/><br />
-            <input type="textfield" name="math_concern_3"/><br />
-            <input type="textfield" name="math_concern_4"/><br />
+            <strong>Math</strong><br/>
+            <textarea style="height:4em;" type="textfield" name="math_concern_1"></textarea><br />
         </div>
         <div class="grid_4 omega" style="">
-            <input type="textfield" name="ela_concern_1"/><br />
-            <input type="textfield" name="ela_concern_2"/><br />
-            <input type="textfield" name="ela_concern_3"/><br />
-            <input type="textfield" name="ela_concern_4"/><br />
+            <strong>ELA</strong><br/>
+            <textarea style="height:4em;" type="textfield" name="ela_concern_1"></textarea><br />
         </div>
     </div>
 
@@ -117,8 +109,21 @@
             </thead>
             <tbody>
                 <tr>
-                    <td>Lexia</td>
-                    <td><input class="t_grid t_grid" type="textfield" name="lexia_MO"/></td>
+                    <td>B &amp; G Club</td>
+                    <td><input class="t_grid t_grid" type="textfield" name="B & G Club_MO"/></td>
+                    <td><input class="t_grid t_grid" type="textfield" name="B & G Club_MO"/></td>
+                    <td><input class="t_grid t_grid" type="textfield" name="B & G Club_MO"/></td>
+                    <td><input class="t_grid t_grid" type="textfield" name="B & G Club_MO"/></td>
+                    <td><input class="t_grid t_grid" type="textfield" name="B & G Club_MO"/></td>
+                    <td><input class="t_grid t_grid" type="textfield" name="B & G Club_MO"/></td>
+                    <td><input class="t_grid t_grid" type="textfield" name="B & G Club_MO"/></td>
+                    <td><input class="t_grid t_grid" type="textfield" name="B & G Club_MO"/></td>
+                    <td><input class="t_grid t_grid" type="textfield" name="B & G Club_MO"/></td>
+                    <td><input class="t_grid t_grid" type="textfield" name="B & G Club_MO"/></td>
+                    <td><input class="t_grid t_grid" type="textfield" name="B & G Club_MO"/></td>
+                </tr>
+                <tr>
+                    <td>Ace IT</td>
                     <td><input class="t_grid t_grid" type="textfield" name="lexia_MO"/></td>
                     <td><input class="t_grid t_grid" type="textfield" name="lexia_MO"/></td>
                     <td><input class="t_grid t_grid" type="textfield" name="lexia_MO"/></td>
@@ -132,23 +137,7 @@
                     <td><input class="t_grid t_grid" type="textfield" name="lexia_MO"/></td>
                 </tr>
                 <tr>
-                    <td>Raz</td>
-                    <td><input class="t_grid t_grid" type="textfield" name="lexia_MO"/></td>
-                    <td><input class="t_grid t_grid" type="textfield" name="lexia_MO"/></td>
-                    <td><input class="t_grid t_grid" type="textfield" name="lexia_MO"/></td>
-                    <td><input class="t_grid t_grid" type="textfield" name="lexia_MO"/></td>
-                    <td><input class="t_grid t_grid" type="textfield" name="lexia_MO"/></td>
-                    <td><input class="t_grid t_grid" type="textfield" name="lexia_MO"/></td>
-                    <td><input class="t_grid t_grid" type="textfield" name="lexia_MO"/></td>
-                    <td><input class="t_grid t_grid" type="textfield" name="lexia_MO"/></td>
-                    <td><input class="t_grid t_grid" type="textfield" name="lexia_MO"/></td>
-                    <td><input class="t_grid t_grid" type="textfield" name="lexia_MO"/></td>
-                    <td><input class="t_grid t_grid" type="textfield" name="lexia_MO"/></td>
-                    <td><input class="t_grid t_grid" type="textfield" name="lexia_MO"/></td>
-                </tr>
-                <tr>
-                    <td>Math Connectors</td>
-                    <td><input class="t_grid t_grid" type="textfield" name="lexia_MO"/></td>
+                    <td>Mystic Learning</td>
                     <td><input class="t_grid t_grid" type="textfield" name="lexia_MO"/></td>
                     <td><input class="t_grid t_grid" type="textfield" name="lexia_MO"/></td>
                     <td><input class="t_grid t_grid" type="textfield" name="lexia_MO"/></td>
@@ -162,23 +151,7 @@
                     <td><input class="t_grid t_grid" type="textfield" name="lexia_MO"/></td>
                 </tr>
                 <tr>
-                    <td>RISE</td>
-                    <td><input class="t_grid t_grid" type="textfield" name="lexia_MO"/></td>
-                    <td><input class="t_grid t_grid" type="textfield" name="lexia_MO"/></td>
-                    <td><input class="t_grid t_grid" type="textfield" name="lexia_MO"/></td>
-                    <td><input class="t_grid t_grid" type="textfield" name="lexia_MO"/></td>
-                    <td><input class="t_grid t_grid" type="textfield" name="lexia_MO"/></td>
-                    <td><input class="t_grid t_grid" type="textfield" name="lexia_MO"/></td>
-                    <td><input class="t_grid t_grid" type="textfield" name="lexia_MO"/></td>
-                    <td><input class="t_grid t_grid" type="textfield" name="lexia_MO"/></td>
-                    <td><input class="t_grid t_grid" type="textfield" name="lexia_MO"/></td>
-                    <td><input class="t_grid t_grid" type="textfield" name="lexia_MO"/></td>
-                    <td><input class="t_grid t_grid" type="textfield" name="lexia_MO"/></td>
-                    <td><input class="t_grid t_grid" type="textfield" name="lexia_MO"/></td>
-                </tr>
-                <tr>
-                    <td>Galileo</td>
-                    <td><input class="t_grid t_grid" type="textfield" name="lexia_MO"/></td>
+                    <td>HAS Club</td>
                     <td><input class="t_grid t_grid" type="textfield" name="lexia_MO"/></td>
                     <td><input class="t_grid t_grid" type="textfield" name="lexia_MO"/></td>
                     <td><input class="t_grid t_grid" type="textfield" name="lexia_MO"/></td>
@@ -192,8 +165,63 @@
                     <td><input class="t_grid t_grid" type="textfield" name="lexia_MO"/></td>
                 </tr>
                 <tr>
-                    <td>After School Program</td>
+                    <td>HAS Reading</td>
                     <td><input class="t_grid t_grid" type="textfield" name="lexia_MO"/></td>
+                    <td><input class="t_grid t_grid" type="textfield" name="lexia_MO"/></td>
+                    <td><input class="t_grid t_grid" type="textfield" name="lexia_MO"/></td>
+                    <td><input class="t_grid t_grid" type="textfield" name="lexia_MO"/></td>
+                    <td><input class="t_grid t_grid" type="textfield" name="lexia_MO"/></td>
+                    <td><input class="t_grid t_grid" type="textfield" name="lexia_MO"/></td>
+                    <td><input class="t_grid t_grid" type="textfield" name="lexia_MO"/></td>
+                    <td><input class="t_grid t_grid" type="textfield" name="lexia_MO"/></td>
+                    <td><input class="t_grid t_grid" type="textfield" name="lexia_MO"/></td>
+                    <td><input class="t_grid t_grid" type="textfield" name="lexia_MO"/></td>
+                    <td><input class="t_grid t_grid" type="textfield" name="lexia_MO"/></td>
+                </tr>
+                <tr>
+                    <td>HAS Math</td>
+                    <td><input class="t_grid t_grid" type="textfield" name="lexia_MO"/></td>
+                    <td><input class="t_grid t_grid" type="textfield" name="lexia_MO"/></td>
+                    <td><input class="t_grid t_grid" type="textfield" name="lexia_MO"/></td>
+                    <td><input class="t_grid t_grid" type="textfield" name="lexia_MO"/></td>
+                    <td><input class="t_grid t_grid" type="textfield" name="lexia_MO"/></td>
+                    <td><input class="t_grid t_grid" type="textfield" name="lexia_MO"/></td>
+                    <td><input class="t_grid t_grid" type="textfield" name="lexia_MO"/></td>
+                    <td><input class="t_grid t_grid" type="textfield" name="lexia_MO"/></td>
+                    <td><input class="t_grid t_grid" type="textfield" name="lexia_MO"/></td>
+                    <td><input class="t_grid t_grid" type="textfield" name="lexia_MO"/></td>
+                    <td><input class="t_grid t_grid" type="textfield" name="lexia_MO"/></td>
+                </tr>
+                <tr>
+                    <td>Peabody House</td>
+                    <td><input class="t_grid t_grid" type="textfield" name="lexia_MO"/></td>
+                    <td><input class="t_grid t_grid" type="textfield" name="lexia_MO"/></td>
+                    <td><input class="t_grid t_grid" type="textfield" name="lexia_MO"/></td>
+                    <td><input class="t_grid t_grid" type="textfield" name="lexia_MO"/></td>
+                    <td><input class="t_grid t_grid" type="textfield" name="lexia_MO"/></td>
+                    <td><input class="t_grid t_grid" type="textfield" name="lexia_MO"/></td>
+                    <td><input class="t_grid t_grid" type="textfield" name="lexia_MO"/></td>
+                    <td><input class="t_grid t_grid" type="textfield" name="lexia_MO"/></td>
+                    <td><input class="t_grid t_grid" type="textfield" name="lexia_MO"/></td>
+                    <td><input class="t_grid t_grid" type="textfield" name="lexia_MO"/></td>
+                    <td><input class="t_grid t_grid" type="textfield" name="lexia_MO"/></td>
+                </tr>
+                <tr>
+                    <td>SpEd ELA</td>
+                    <td><input class="t_grid t_grid" type="textfield" name="lexia_MO"/></td>
+                    <td><input class="t_grid t_grid" type="textfield" name="lexia_MO"/></td>
+                    <td><input class="t_grid t_grid" type="textfield" name="lexia_MO"/></td>
+                    <td><input class="t_grid t_grid" type="textfield" name="lexia_MO"/></td>
+                    <td><input class="t_grid t_grid" type="textfield" name="lexia_MO"/></td>
+                    <td><input class="t_grid t_grid" type="textfield" name="lexia_MO"/></td>
+                    <td><input class="t_grid t_grid" type="textfield" name="lexia_MO"/></td>
+                    <td><input class="t_grid t_grid" type="textfield" name="lexia_MO"/></td>
+                    <td><input class="t_grid t_grid" type="textfield" name="lexia_MO"/></td>
+                    <td><input class="t_grid t_grid" type="textfield" name="lexia_MO"/></td>
+                    <td><input class="t_grid t_grid" type="textfield" name="lexia_MO"/></td>
+                </tr>
+                <tr>
+                    <td>SpEd Math</td>
                     <td><input class="t_grid t_grid" type="textfield" name="lexia_MO"/></td>
                     <td><input class="t_grid t_grid" type="textfield" name="lexia_MO"/></td>
                     <td><input class="t_grid t_grid" type="textfield" name="lexia_MO"/></td>
