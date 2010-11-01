@@ -7,9 +7,6 @@ from dashboard.display.models import Spreadsheet, Student, StudentClass
 import datetime
 from random import randint
 
-from pygooglechart import PieChart2D, ScatterChart, StackedVerticalBarChart
-from pylab import *
-import etframes
 
 
 def students(request):
@@ -49,9 +46,12 @@ def student(request, student_id):
 
 def issp(request, student_id=1):
     # Return what existing that we hvae
-    record = Student.objects.get(pk=student_id)
-    the_class = StudentClass.objects.filter(student=record.pk)[0]
-    adv_teacher = the_class.class_teach # guessing first() teacher the Advisor
+    try:
+        record = Student.objects.get(pk=student_id)
+        the_class = StudentClass.objects.filter(student=record.pk)[0]
+        adv_teacher = the_class.class_teach # guessing first() teacher the Advisor
+    except:
+        adv_teacher = "Ms. Simmons"
 
     # Random values as placeholders for database stores
     galileo = {
