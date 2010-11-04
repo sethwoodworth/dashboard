@@ -105,9 +105,9 @@ class Spreadsheet(models.Model):
     program1 = models.TextField(db_column=u'Program1', blank=True) # Field name made lowercase. This field type is a guess.
     hbase = models.TextField(db_column=u'HBase', blank=True) # Field name made lowercase. This field type is a guess.
     def __unicode__(self):
-        return self.grade + ' ' + self.grade + ' ' + self.homeroom
+        return str(self.id) + ' ' + self.dob2 + ' ' + str(self.math)
     class Meta:
-        db_table = u'school'
+        db_table = u'new_school'
 
 
 class Student(models.Model):

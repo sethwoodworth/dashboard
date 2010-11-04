@@ -107,8 +107,9 @@ html {}
 }
 
 .header h1 { font-size: 3.5em; color: #503e2b; }
-.section h2 { padding-left: 5px; background-color: #eee; cursor: pointer;}
-.section h2 a { color: #503e2b; text-decoration:none; display: block; }
+.menu_head { background-color: #eee; cursor: pointer; margin-bottom: 18px;}
+.section h2 { color: #503e2b; text-decoration:none; display: inline ; }
+.menu_head a { color: #503e2b; text-decoration:none; display: inline ; }
 
 div#menu { margin-bottom: 10px; }
 
@@ -120,6 +121,16 @@ div#menu { margin-bottom: 10px; }
 .edu { color: #555555; background: #D6A8CD }
 
 .spreadsheet { background-color : #DFEAEC }
+th.headerSortUp { 
+    background-color: #3399FF; 
+} 
+th.headerSortDown{ 
+    background-color: #DFEAEC; 
+} 
+th.header { 
+    cursor: pointer; 
+    font-weight: bold; 
+} 
 
 /* report card */
 .row{

@@ -7,32 +7,36 @@
 
 
 {% block primary %}
-    {% for grade, grade_dict in dict_rows.items %}
-    <div class="section">
-        <h2><a name="grade {{ grade }}" href="#grade_{{ grade }}">Grade {{ grade }}</a></h2>
-        <div class="contents" style:"display: none">
-            <table class='spreadsheet'>
+    {% for year_set in dict_rows %}
+    <div class="grid_12 section alpha">
+        <div class="grid_12 menu_head alpha">
+            <a name="grade {{ forloop.counter }}" href="#grade_{{ forloop.counter }}" style="text-decoration:none; color"><h2 class="prefix_1">Grade {{ forloop.counter }}</h2> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ year_set|length }} students </a><br/>
+        </div>
+        <div class="contents" style:"">
+            <table id="grade_{{ forloop.counter }}" class='grid_12 spreadsheet tablesorter'>
                 <thead>
                     <tr>
-                        <td>Student ID</td> 
-                        <td>Birthday</td> 
-                        <td>Gender</td> 
-                        <td>Program</td> 
-                        <td>Homeroom Teacher</td> 
-                        <td>Attendance</td> 
-                        <td>Suspensions</td> 
-                        <td>Math?</td> 
-                        <td>ELA</td> 
-                        <td>Home Language</td> 
-                        <td>Race</td> 
+                        <th>Fake Name</th>
+                        <th>Birthday</th> 
+                        <th>Program</th> 
+                        <th>Homeroom</th> 
+                        <th>Attendance</th> 
+                        <th>Susp</th> 
+                        <th>Math</th> 
+                        <th>ELA</th> 
+                        <th>Home Language</th> 
+                        <th>Race</th> 
                     </tr>
                 </thead>
                 <tbody>
-                    {% for student in grade_dict %}
-                    <tr class={% cycle '' 'row2' %}>
-                        <td>{{ student.id }}</td>
+                    {% for student in year_set %}
+                    <tr class={# cycle '' 'row2' #}>
+                        <td>
+                            Jordan&nbsp;Fakename&nbsp;{% if student.gen == 'F' %}♀ {# &#9792; #}
+                            {% else %}♂ {# &#9794; #}
+                            {% endif %}
+                        </td>
                         <td>{{ student.dob2 }}</td>
-                        <td>{{ student.gen }}</td>
                         <td>
                             {% ifequal student.program 'Nb' %}
                                 Neighborhood
@@ -55,14 +59,13 @@
                </tbody>
                 <tfoot>
                     <tr>
-                        <td>Student ID</td> 
+                        <td>Fake Name</td>
                         <td>Birthday</td> 
-                        <td>Gender</td> 
                         <td>Program</td> 
-                        <td>Homeroom Teacher</td> 
+                        <td>Homeroom</td> 
                         <td>Attendance</td> 
-                        <td>Suspensions</td> 
-                        <td>Math?</td> 
+                        <td>Susp</td> 
+                        <td>Math</td> 
                         <td>ELA</td> 
                         <td>Home Language</td> 
                         <td>Race</td> 
@@ -72,5 +75,13 @@
         </div>
     </div>
 {% endfor %}
+<hr/>
+&#9792;
+&#9793;
+&#9794;
+&#9795;
+&#256;
+&#257;
+&#258;
 
 {% endblock %}

@@ -11,8 +11,7 @@
 
 <div class="section" style="text-align:right;"><h2 style="">{{ student.name|default:"Sample Name" }}, <strong>Class of {{ student.yog|default:2013 }}</strong>&nbsp&nbsp&nbsp&nbsp</h2></div>
 
-<div class="report">
-    <div class="row">
+    <div class="grid_8 prefix_2 row">
 
         <div class="percent-box">
             <div style="height:100%;">
@@ -51,7 +50,7 @@
         </div>
     </div>
     <hr/>
-    <div class="row">
+    <div class="grid_8 prefix_2 row">
         <div class="percent-box">
             <div style="height:100%;">
                 <h2 style="text-align: center; margin: 0 auto;">{{ grade_ave|default:'??' }} %</h2>
@@ -91,7 +90,8 @@
         </div>
     </div>
     <hr/>
-    <div class="row">
+    {% comment %}
+    <div class="grid_8 prefix_2 row">
 
         <div class="percent-box">
             <div style="height:100%;">
@@ -129,7 +129,7 @@
             <h3>Credits:</h3>
         </div>
     </div>
+    {% endcomment %}
 
-</div>
 
 {% endblock %}

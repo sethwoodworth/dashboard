@@ -13,6 +13,9 @@
 
     <!-- Script Section -->
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.2.6/jquery.min.js" type="text/javascript"></script>
+	<script src="/static/js/jquery.tablesorter.min.js" type="text/javascript"></script>
+
+    {% comment %}
     <script type="text/javascript">
         $(function() {
             $('.section .contents').hide()
@@ -26,21 +29,15 @@
                 $('.section .contents').hide()
             })
 
-            $('.section h2').click(function() {
-                var hidden = $(this).next().is(':hidden')
-                $(this).next().slideToggle()
+            $('.menu_head h2').click(function() {
+                var hidden = $(div).next().is(':hidden')
+                $(div).next().slideToggle()
                 return hidden
             })
 
-            $('#menu span').css('cursor', 'pointer').click(function() {
-                $('.section .contents').hide()
-                showSectionsForSCM(this.innerHTML)
-                document.location.hash = this.innerHTML
-            }) 
-
             if (document.location.hash) {
                 var anchor = document.location.hash.substring(1)
-                $('.section h2 a[name=' + anchor + ']').parent('h2').click()
+                $('.menu_head a[name=' + anchor + ']').parent('div').click()
                 showSectionsForSCM(anchor)
             }
 
@@ -48,6 +45,15 @@
                 $('.section .' + scm).parents('.section').find('.contents').show()
             }
         })
+    </script>
+    {% endcomment %}
+    <script type="text/javascript">
+
+    $(document).ready(function() 
+        { 
+            $("#grade_1").tablesorter(); 
+        } 
+    ); 
     </script>
 
     </head>
@@ -58,11 +64,12 @@
             <div id="header" class="grid_12" style="background-color: #fff"><h1>OneVille Family Dashboard</h1>
                 <div id="nav">
                     <div id="menu">
-                        <span class="lang work"><a class="work" href="/dashboard/">Home</a></span>
-                        <span class="lang hack"><a class="hack" href="/dashboard/about/">About</a></span>
-                        <span class="lang play"><a class="play" href="/dashboard/grades/">Students</a></span>
-                        <span class="lang edu"><a class="edu" href="/dashboard/student">Student</a></span>
+                        <span class="lang work"><a class="work" href="/dashboard/grades/">Home</a></span>
+                        <span class="lang play"><a class="play" href="/dashboard/student/1">Student Example</a></span>
+                        <span class="lang edu"><a class="edu" href="/dashboard/student/issp">ISSP</a></span>
+                        {% comment %}
                         <span class="lang libre"><a class="libre" href="/dashboard/graphs/">Graphs</a></span>
+                        {% endcomment %}
                     </div>
                 </div>
             </div>
