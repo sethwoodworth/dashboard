@@ -24,9 +24,20 @@
         <div class="grid_4  omega">
             <h3>2. School Contacts</h3>
             {# Implementation date means /today/? #}
-            Implementation date: <input type="textfield" name="implementation" value="{{ today|date:"d/m/Y" }}" /><br />
-            Advisor Teacher: <input type="textfield" name="implementation" value="{{ teacher }}" /> Guidance Counselor: <input type="textfield" name="implementation" value="{{ Counselor|default:"Mr. Roy" }}" />
+            <div class="grid_2 alpha">Implementation date:</div> 
+            <div class="grid_2 omega">
+                <input class="grid_2" type="textfield" name="implementation" value="{{ today|date:"d/m/Y" }}" /><br />
+            </div>
+            <div class="grid_2 alpha">Advising Teacher:</div>
+            <div class="grid_2 omega">
+                <input class="grid_2" type="textfield" name="implementation" value="{{ teacher }}" /><br/> 
+            </div>
+            <div class="grid_2 alpha">Guidance Counselor:</div>
+            <div class="grid_2 omega">
+                <input class="grid_2" type="textfield" name="implementation" value="{{ Counselor|default:"Mr. Roy" }}" />
+            </div>
         </div>
+
     </div>
     <hr/>
 
