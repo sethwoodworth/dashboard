@@ -1,0 +1,119 @@
+
+{% extends 'display/base.html' %}
+
+{% block pagetitle %}{% endblock %}
+
+
+
+
+
+{% block primary %}
+
+<div class="section" style="text-align:right; background-color:#ccc;"><h2 style="">{{ student.name|default:"Sample Name" }}, <strong>Class of {{ student.yog|default:2013 }}</strong>&nbsp&nbsp&nbsp&nbsp</h2></div>
+
+    <div class="grid_12 row">
+        <h3>My Attendance:</h3>
+    </div>
+    <div class="grid_8 row alpha">
+        <div class="grid_2 alpha module {% if att.average < 92 %}warn{% endif %}" style="height:100px;">
+            <div class="body big"> 
+                {{ att.average }} %
+            </div>
+            <div class="foot"> 
+                <h3> Goal: 92 % or higher </h3>
+            </div>
+        </div>
+        <div class="grid_6 omega module" style="background-color:#eeeeee; height:70px;">
+            <div class="grid_1 alpha" style="text-align:center;">
+                <div style="height:40%;"> </div><strong>Days Missed</strong>
+            </div>
+            <div class="grid_5 omega">
+                {% for month in att.months %}
+                <div style="text-align: center;" class="grid_1 {% if forloop.first %} alpha {% endif %}{% if forloop.last %} omega {% endif %}">
+                    <strong>{{ month }}</strong>
+                </div>
+                {% endfor %}
+
+                {% for month, value, missed in att.months.values  %}
+                <div class="grid_1 {% if forloop.first %} alpha {% endif %}{% if forloop.last %} omega {% endif %}">
+                    <div class="big">
+                        {{ missed }}
+                    </div>
+                    <div style="text-align:center;">
+                        (of {{ value }})
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <div class="grid_3 omega">
+        <textarea name="1" type="textfield" style="width:100%;height:4em">Improvement plan</textarea>
+    </div>
+
+
+    <div class="grid_12 row" style="margin-top:20px;">
+        <h3>My Grades:</h3>
+    </div>
+    <div class="grid_2 alpha module {% if grades.average < 80 %}warn{% endif %}" style="height:100px;">
+        <div class="body big"> 
+            {{ grades.average }} %
+        </div>
+        <div class="foot"> 
+            <h3> Goal: 80 % or higher </h3>
+        </div>
+    </div>
+    <div class="grid_6 module" style="background-color:#eeeeee;">
+        <div class="grid_5" style="">
+            <div class="grid_1 alpha" style="text-align:center;">Class</div>
+            <div class="grid_1" style="text-align:center;">Teacher</div>
+            <div class="grid_1" style="text-align:center;">Grade</div>
+            <div class="grid_1" style="text-align:center;">Goal</div>
+            <div class="grid_1 omega" style="text-align:center;">Credits</div>
+        </div>
+        {% for class in grades.scores %}
+        <div class="grid_5" style="
+            {% if class.class_grade < class.class_goal %}
+                background-color:lightGoldenRodYellow;
+            {% endif %}">
+            <div class="grid_1 alpha" style="text-align:center;">{{ class.class_name }}</div>
+            <div class="grid_1" style="text-align:center;">{{ class.class_teach }}</div>
+            <div class="grid_1" style="text-align:center;">{{ class.class_grade }}</div>
+            <div class="grid_1" style="text-align:center;">{{ class.class_goal }}</div>
+            <div class="grid_1 omega" style="text-align:center;">{{ class.class_credits }}</div>
+        </div>
+        {% endfor %}
+    </div>
+    <div class="grid_3 omega">
+        <textarea name="1" type="textfield" style="width:100%;height:12em">Improvement plan</textarea>
+    </div>
+
+    <div class="grid_12 row" style="margin-top:20px;">
+        <h3>My Tests:</h3>
+    </div>
+    <div class="grid_4 module alpha" style="background-color: #eee">
+        <div class="grid_1 alpha center"><strong>MAPS Math</strong></div>
+        <div class="grid_1 center">September: <br />{{ math.sept }} </div>
+        <div class="grid_1 center">January: <br />{{ math.jan }}</div>
+        <div class="grid_1 center omega">April: <br />{{ math.apr }}</div>
+    </div>
+    <div class="grid_4 module omega" style="background-color: #eee">
+        <div class="grid_1 alpha center"><strong>MAPS ELA</strong></div>
+        <div class="grid_1 center">September: <br />{{ ela.sept }} </div>
+        <div class="grid_1 center">January: <br />{{ ela.jan }}</div>
+        <div class="grid_1 center omega">April: <br />{{ ela.apr }}</div>
+    </div>
+
+    <div class="grid_12 row" style="margin-top:20px;">
+        <h3 style="display: inline;">My Team:</h3> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;People supporting me
+    </div>
+    <div class="grid_4">
+        Parent/Guardian: 
+    </div>
+
+
+{# V Old crap V #}
+
+
+
+{% endblock %}

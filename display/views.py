@@ -4,8 +4,10 @@ from django.template import Context, loader
 
 from dashboard.display.models import Spreadsheet, Student, StudentClass
 
+import calendar
 import datetime
-from random import randint
+import random
+from random import choice, gauss
 
 from pygooglechart import PieChart2D, ScatterChart, StackedVerticalBarChart
 from pylab import *
@@ -47,6 +49,81 @@ def student(request, student_id):
 
     return render_to_response('display/student.html', {'student': record, 'attn_ave': attn_ave, 'grades': grades, 'grade_goal': grade_goal, 'grade_ave': grade_ave})
 
+def attn_month(month_number):
+    if month_number > 9:
+        year = 2010
+    else:
+        year = 2010
+    mo = calendar.monthrange(year, month_number)[1] 
+    # implement this later, grabs the # of weekdays in a month, not really important
+    #weekdays = len([date for date in range(1,mo) if calendar.weekday(year, month_number, date) < 5])
+    missed = round(abs(gauss(0,3)))
+    att = mo - missed
+    return (att, mo, missed)
+
+def fake_student(request):
+    name = {'first_name': choice(['Agustin','Theresa','Salim','Philemon','Nilsa','Katherinne']),
+            'last_name': choice(['Brody','Fils-Aime','Leib','Ojeda','O\'Keefe','Oppedisano'])}
+    grade = choice([('9th',2014),('10th',2015)])
+
+    att_month = {'September': attn_month(9),
+                'October': attn_month(10),
+                'November': attn_month(11),
+                'December': attn_month(12),
+                'January': attn_month(1)}
+    att = { 'average': int(round(sum([att_month[key][0] for key in att_month])/sum([att_month[key][1] for key in att_month])*100)),
+            'months': att_month }
+
+    scores = [ 
+        {'class_credits': 5,
+          'class_goal': 82,
+          'class_grade': 100 - int(round(abs(gauss(0,19)))),
+          'class_name': u'Pre-Biology',
+          'class_teach': u'Ms. Tsoi'},
+         {'class_credits': 5,
+          'class_goal': 92,
+          'class_grade': 100 - int(round(abs(gauss(0,19)))),
+          'class_name': u'Algebra 1A',
+          'class_teach': u'Mr. Morgan'},
+         {'class_credits': 5,
+          'class_goal': 87,
+          'class_grade': 100 - int(round(abs(gauss(0,19)))),
+          'class_name': u'US History 1',
+          'class_teach': u'Ms. Dedieu'},
+         {'class_credits': 5,
+          'class_goal': 90,
+          'class_grade': 100 - int(round(abs(gauss(0,25)))),
+          'class_name': u'French 1',
+          'class_teach': u'Mme. Lawrence'},
+         {'class_credits': 5,
+          'class_goal': 87,
+          'class_grade': 100 - int(round(abs(gauss(0,17)))),
+          'class_name': u'English 1',
+          'class_teach': u'Ms. Mattos'},
+         {'class_credits': 3,
+          'class_goal': 80,
+          'class_grade': 100 - int(round(abs(gauss(0,20)))),
+          'class_name': u'Health Edu.',
+          'class_teach': u'Ms. Flynn'},
+         {'class_credits': 3,
+          'class_goal': 80,
+          'class_grade': 100 - int(round(abs(gauss(0,20)))),
+          'class_name': u'Intro. Guitar',
+          'class_teach': u'Ms. Sears'}]
+    grades = {'average': sum([x['class_grade'] for x in scores])/len(scores),
+                'scores': scores}
+
+    math = {
+        'sept': randint(210,250),
+        'jan': randint(210,250),
+        'apr': randint(210,250)}
+    ela = {
+        'sept': randint(210,250),
+        'jan': randint(210,250),
+        'apr': randint(210,250)}
+
+    return render_to_response('display/fake.html', {'name': name, 'grade': grade, 'att': att, 'grades': grades, 'math': math, 'ela': ela})
+
 def issp(request, student_id=1):
     # Return what existing that we hvae
     record = Student.objects.get(pk=student_id)
@@ -54,19 +131,16 @@ def issp(request, student_id=1):
     adv_teacher = the_class.class_teach # guessing first() teacher the Advisor
 
     # Random values as placeholders for database stores
-    galileo = {
-            'math': {
-                'sept': randint(210,250),
-                'jan': randint(210,250),
-                'apr': randint(210,250),
-                },
-            'ela':{
-                'sept': randint(210,250),
-                'jan': randint(210,250),
-                'apr': randint(210,250)}
-            }
+    math = {
+        'sept': randint(210,250),
+        'jan': randint(210,250),
+        'apr': randint(210,250)}
+    ela = {
+        'sept': randint(210,250),
+        'jan': randint(210,250),
+        'apr': randint(210,250)}
 
-    return render_to_response('display/issp.html', {'today': datetime.datetime.now(), 'advisor': adv_teacher, 'scores': galileo,})
+    return render_to_response('display/issp.html', {'today': datetime.datetime.now(), 'advisor': adv_teacher, 'math': math, 'ela': ela})
 
 def grade(request):
     years = ['01', '02', '03', '04', '05', '06', '07', '08']
@@ -74,6 +148,11 @@ def grade(request):
     d_list = []
     for grade in sorted(years):
         d_list.append(Spreadsheet.objects.filter(grade=grade).values())
+    for year in d_list:
+        for student in year.__dict__():
+            print student['year']
+            student['att'] = int(student['att'])
+
         #for row in students:
             #dict_rows[grade].append(row)
         #dict_class = {}

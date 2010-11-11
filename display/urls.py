@@ -9,6 +9,7 @@ urlpatterns = patterns('dashboard.display.views',
     (r'^students', 'students'),
     (r'^student/issp', 'issp'),
     (r'^student/(?P<student_id>\d+)', 'student'),
+    (r'^student/fake', 'fake_student'),
     (r'^sample', 'sample'),
     (r'^(\d+)', 'detail'),
 )
