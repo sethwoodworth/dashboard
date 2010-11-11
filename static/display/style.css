@@ -144,6 +144,7 @@ th.header {
     position:absolute;
 }
 .percent-box {
+    -webkit-border-radius: 8px; -moz-border-radius: 8px; border-radius: 8px;
     margin: 25px;
     background: yellow;
     height: 75px;
@@ -167,6 +168,7 @@ th.header {
     font-style: bold;
 }
 
+.big { text-align:center; font-size:1.2em;line-height:1.25;}
 
 .row1 {  }
 .row2 { background-color : #D1F6FB }
@@ -177,3 +179,14 @@ th.header {
 
 .grid_8 table
 .t_grid { width:30px; border: 2px solid #D1F6FB; padding: 0px; }
+
+.module { float: left; -webkit-border-radius: 8px; -moz-border-radius: 8px; border-radius: 8px; background-color: green;}
+.module > .body { height: 70%; -webkit-border-radius: 8px; -moz-border-radius: 8px; border-radius: 8px; background-color: lightGreen; margin: 4px; }
+.module > .big { text-align:center; font-size:2em;}
+.module > .foot { height: 10%;}
+.module > .foot h3 { padding-left: 4px; font-size:1.2em;line-height:1.25;}
+
+.warn { background-color: lightGoldenRodYellow; }
+.warn > .body { background-color: yellow;}
+
+.center { text-align: center; }

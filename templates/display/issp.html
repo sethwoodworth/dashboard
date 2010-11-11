@@ -44,14 +44,18 @@
     <div class="grid_8 title">
         <h3>3. Assessment Information</h3>
     </div>
-        {% for test, list in scores.items %}
         <div class="grid_4" style="">
-            <strong>{{ test }}</strong> <br />
-            {% for name, value in list %}
-            {{ name }}: {{ value }} <br />
-            {% endfor %}
+            <strong>MAPS Math</strong> <br />
+            September: {{ math.sept }} <br />
+            January: {{ math.jan }} <br />
+            April: {{ math.apr }} <br />
         </div>
-        {% endfor %}
+        <div class="grid_4" style="">
+            <strong>MAPS ELA</strong> <br />
+            September: {{ ela.sept }} <br />
+            January: {{ ela.jan }} <br />
+            April: {{ ela.apr }} <br />
+        </div>
 
         <div class="grid_4 omega" style="">
             <strong>ELA</strong> <br />
