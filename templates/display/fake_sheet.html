@@ -1,0 +1,153 @@
+
+{% extends 'display/base.html' %}
+
+{% block pagetitle %}{% endblock %}
+{% block title %}Healey Students Example Grade/Class{% endblock %}
+
+
+
+
+{% block primary %}
+<div class="grid_12 section alpha">
+    <div class="grid_12 menu_head alpha">
+        <a name="grade X" style="text-decoration:none;"><h2 class="prefix_1">Grade 9</h2>
+    </div>
+    <div class="contents">
+        <table class="grid_12 spreadsheet tablesorter">
+            <thead><tr>
+                <th>Name</th>
+                <th>G</th>
+                <th>Homeroom</th>
+                <th>Attendance</th>
+                <th>Home Language</th>
+                <th>MAP Math</th>
+                <th>MAP Reading</th>
+                <th>Ward</th>
+                <th>Income</th>
+            </tr></thead>
+            <tbody>
+                {% for student in students %}
+                <tr>
+                    <td>{{ student.last_name }}, {{ student.first_name }}</td>
+                    <td>{% if student.gen == 'F' %}♀ {# &#9792; #}
+                            {% else %}♂ {# &#9794; #}
+                        {% endif %}</td>
+                    <td>{{ student.homeroom }}</td>
+                    <td style="{% if student.att < 85 %}background-color: lightGoldenRodYellow;{% endif %}">
+                        {{ student.att }} %</td>
+                    <td style="background-color: 
+                        {% if student.homelang == 'Spanish' %}#A8D6CD;{% endif %}
+                        {% if student.homelang == 'Portuguese' %}#A8A8D6;{% endif %}
+                        {% if student.homelang == 'English' %}#D6A8CD;{% endif %}
+                        {% if student.homelang == 'Creole(Haitian)' %}#D6BBA8;{% endif %}
+                        ">
+                        {{ student.homelang }}</td>
+                    <td style="background-color: 
+                        {% if student.math < 170 %}#C0342A;{% endif %}
+                        {% if student.math > 171 and student.math < 200 %}lightGoldenRodYellow;{% endif %}
+                        ">
+                        {{ student.math }}</td>
+                    <td style="background-color: 
+                        {% if student.reading < 170 %}#C0342A;{% endif %}
+                        {% if student.reading > 171 and student.reading < 200 %}lightGoldenRodYellow;{% endif %}
+                        ">
+                        {{ student.reading }}</td>
+                    <td>{{ student.ward }}</td>
+                    <td style="background-color: 
+                        {% if student.income == 'Free Lunch' %}#ddd;{% endif %}
+                        {% if student.income == 'Reduced Lunch' %}#eee;{% endif %}
+                        ">
+                        {{ student.income }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+            
+            
+
+</div>
+{# does not work V #}
+    {% for year_set in dict_rows %}
+    <div class="grid_12 section alpha">
+        <div class="grid_12 menu_head alpha">
+            <a name="grade {{ forloop.counter }}" href="#grade_{{ forloop.counter }}" style="text-decoration:none; color"><h2 class="prefix_1">Grade {{ forloop.counter }}</h2> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ year_set|length }} students </a><br/>
+        </div>
+        <div class="contents" style:"">
+            <table id="grade_{{ forloop.counter }}" class='grid_12 spreadsheet tablesorter'>
+                <thead>
+                    <tr>
+                        <th>Fake Name</th>
+                        <th>Birthday</th> 
+                        <th>Program</th> 
+                        <th>Homeroom</th> 
+                        <th>Attendance</th> 
+                        <th>Susp</th> 
+                        <th>Math</th> 
+                        <th>ELA</th> 
+                        <th>Home Language</th> 
+                        <th>Race</th> 
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for student in year_set %}
+                    <tr class={# cycle '' 'row2' #}>
+                        <td>
+                            Jordan&nbsp;Fakename&nbsp;{% if student.gen == 'F' %}♀ {# &#9792; #}
+                            {% else %}♂ {# &#9794; #}
+                            {% endif %}
+                        </td>
+                        <td>{{ student.dob2 }}</td>
+                        <td>
+                            {% ifequal student.program 'Nb' %}
+                                Neighborhood
+                                {% else %}{% ifequal student.program 'Ch' %}
+                                    Choice
+                                    {% else %}
+                                        {{ student.program }}
+                            {% endifequal %}
+                            {% endifequal %}
+                        </td>
+                        <td>{{ student.hr }}</td>
+                        <td style="
+                            {% if student.att < ' 87 ' %}
+                            background-color: #ECE9DF;
+                            {% endif %}
+                            ">{{ student.att|stringformat:"#s" }} %</td>
+                        <td>{{ student.susp }}</td>
+                        <td>{{ student.math }}</td>
+                        <td>{{ student.ela }}</td>
+                        <td>{{ student.homelang }}</td>
+                        <td>{{ student.race }}</td>
+                   </tr>
+                   {% endfor %}
+               </tbody>
+                <tfoot>
+                    <tr>
+                        <td>Fake Name</td>
+                        <td>Birthday</td> 
+                        <td>Program</td> 
+                        <td>Homeroom</td> 
+                        <td>Attendance</td> 
+                        <td>Susp</td> 
+                        <td>Math</td> 
+                        <td>ELA</td> 
+                        <td>Home Language</td> 
+                        <td>Race</td> 
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+{% endfor %}
+<hr/>
+&#9792;
+&#9793;
+&#9794;
+&#9795;
+&#256;
+&#257;
+&#258;
+
+{% endblock %}

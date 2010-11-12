@@ -3,7 +3,7 @@ from dashboard.display.models import Spreadsheet
 
 urlpatterns = patterns('dashboard.display.views',
     (r'^$', 'index'),
-    (r'^grade', 'grade'),
+    (r'^grade', 'fake_grade'),
     (r'^graphs', 'graph_all'),
     (r'^stats', 'stats'),
     (r'^students', 'students'),

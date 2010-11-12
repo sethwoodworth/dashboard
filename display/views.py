@@ -7,7 +7,7 @@ from dashboard.display.models import Spreadsheet, Student, StudentClass
 import calendar
 import datetime
 import random
-from random import choice, gauss
+from random import choice, gauss, randint, uniform
 
 from pygooglechart import PieChart2D, ScatterChart, StackedVerticalBarChart
 from pylab import *
@@ -149,9 +149,8 @@ def grade(request):
     for grade in sorted(years):
         d_list.append(Spreadsheet.objects.filter(grade=grade).values())
     for year in d_list:
-        for student in year.__dict__():
-            print student['year']
-            student['att'] = int(student['att'])
+        for student in year.values():
+            student['att'] = student['att']
 
         #for row in students:
             #dict_rows[grade].append(row)
@@ -161,6 +160,36 @@ def grade(request):
         #for y in dict_rows:
     return render_to_response('display/grade.html', 
             {'dict_rows': d_list, 'grades': years})
+
+def w_choice(lst):
+    n = uniform(0, 1)
+    for item, weight in lst:
+        if n < weight:
+            break
+        n = n - weight
+    return item
+
+def a_fake(count):
+    student_list = []
+    for x in range(count):
+        student = {}
+        student['first_name'] = choice(['Adam', 'Alex', 'Beth', 'Chris', 'Salim', 'Gianna', 'Yahaira', 'Tenzin', 'Marisa'])
+        student['last_name'] = choice(['Perez', 'Ricci', 'Mathews', 'Mechem', 'Fonseca', 'Killoren', 'Haley', 'DeMattia'])
+        student['gen'] = choice(['M','F'])
+        student['homeroom'] = choice(['HEA 313', 'HEA 105', 'HEA 316', 'HEA 105', 'HEA 301', 'HEA 219', 'HEA 200'])
+        student['att'] = 100 - int(round(abs(gauss(0,9))))
+        student['homelang'] = w_choice([('Amharic', 0.01), ('Arabic', 0.01), ('Bengali', 0.03), 
+            ('Creole(Haitian)', 0.1), ('Portuguese', 0.15), ('Spanish', 0.15), ('Dutch', 0.02), ('English', 0.7)])
+        student['math'] = randint(150,260)
+        student['reading'] = randint(170,250)
+        student['ward'] = randint(1,7)
+        student['income'] = choice(['Not Eligible', 'Free Lunch', 'Reduced Lunch'])
+        student_list.append(student)
+    return student_list
+
+def fake_grade(request):
+    students = a_fake(100)
+    return render_to_response('display/fake_sheet.html', {'students': students})
 
 def graph_all(request):
     birthdays = Spreadsheet.objects.order_by('dob2').exclude(dob2='').all()
