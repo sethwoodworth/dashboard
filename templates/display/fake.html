@@ -9,7 +9,7 @@
 
 {% block primary %}
 
-<div class="section" style="text-align:right; background-color:#ccc;"><h2 style="">{{ student.name|default:"Sample Name" }}, <strong>Class of {{ student.yog|default:2013 }}</strong>&nbsp&nbsp&nbsp&nbsp</h2></div>
+<div class="section" style="text-align:right; background-color:#ccc;"><h2 style="">{{ name.last_name }}, {{ name.first_name }}, <strong>Class of {{ student.yog|default:2013 }}</strong>&nbsp&nbsp&nbsp&nbsp</h2></div>
 
     <div class="grid_12 row">
         <h3>My Attendance:</h3>
@@ -65,11 +65,11 @@
     </div>
     <div class="grid_6 module" style="background-color:#eeeeee;">
         <div class="grid_5" style="">
-            <div class="grid_1 alpha" style="text-align:center;">Class</div>
-            <div class="grid_1" style="text-align:center;">Teacher</div>
-            <div class="grid_1" style="text-align:center;">Grade</div>
-            <div class="grid_1" style="text-align:center;">Goal</div>
-            <div class="grid_1 omega" style="text-align:center;">Credits</div>
+            <div class="grid_1 alpha" style="text-align:center;"><strong>Class</strong></div>
+            <div class="grid_1" style="text-align:center;"><strong>Teacher</strong></div>
+            <div class="grid_1" style="text-align:center;"><strong>Grade</strong></div>
+            <div class="grid_1" style="text-align:center;"><strong>Goal</strong></div>
+            <div class="grid_1 omega" style="text-align:center;"><strong>Credits</strong></div>
         </div>
         {% for class in grades.scores %}
         <div class="grid_5" style="
@@ -107,8 +107,25 @@
     <div class="grid_12 row" style="margin-top:20px;">
         <h3 style="display: inline;">My Team:</h3> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;People supporting me
     </div>
-    <div class="grid_4">
-        Parent/Guardian: 
+    <div class="grid_4 alpha prefix_1" style="margin-top:7px;">
+        <strong>Parent/Guardian:</strong> 
+        <textarea name="1" type="textfield" style="float:right;height:1em">Phone Number</textarea>
+        <textarea name="1" type="textfield" style="float:right;height:1em">Email</textarea>
+    </div>
+    <div class="grid_4 omega prefix_1" style="margin-top:7px;">
+        <strong>Teacher:</strong> 
+        <textarea name="1" type="textfield" style="float:right;height:1em">Phone Number</textarea>
+        <textarea name="1" type="textfield" style="float:right;height:1em">Email</textarea>
+    </div>
+    <div class="grid_4 alpha prefix_1" style="margin-top:7px;">
+        <strong>Adult Supporter:</strong> 
+        <textarea name="1" type="textfield" style="float:right;height:1em">Phone Number</textarea>
+        <textarea name="1" type="textfield" style="float:right;height:1em">Email</textarea>
+    </div>
+    <div class="grid_4 omega prefix_1" style="margin-top:7px;">
+        <strong>Peer Supporter:</strong> 
+        <textarea name="1" type="textfield" style="float:right;height:1em">Phone Number</textarea>
+        <textarea name="1" type="textfield" style="float:right;height:1em">Email</textarea>
     </div>
 
 
