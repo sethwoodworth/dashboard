@@ -1,21 +1,50 @@
 {% extends "pstp/base.html" %}
 
-{% block content %} 
-{%for subject, values in sub_dict.iteritems %}        
+{% block primary %} 
+
+{%for subject, mysubheader in sub_dict.iteritems %}        
     <h1>{{subject}}</h1> 
-    {% for value in values %}
-        <h2> {{value}}</h2>
-        {% for subheader, values in head_dict.iteritems %}
-            {% for value in values %}
-                <li>{{value}}
-            {% endfor %}
-            </ul>
-        {%endfor%}
-        <form method=post>
-        <h4>"Name of Commenter"</h4>  
-        <textarea row="10" cols="30">
-        </textarea> 
-        </form> 
+    {% for subheader, ga in mysubheader.iteritems %}
+        <hr /> 
+        <br /> 
+        <h2> {{subheader}}</h2>
+        <div class="contents">
+            <table class= "grid_8 suffix_4" cellpadding="0" cellspacing="0"> 
+                {% for value in ga %}
+                <tr> 
+                    <td>{{value}}</td>
+                    <td>{{value.grade}}</td>
+                </tr> 
+                {% endfor %}
+            </table>
+        </div>
+        <div class = "grid_12 alpha omega" > 
+           <div class = "grid_4 alpha ">
+                <form method="Post">
+                    <h4>Teacher</h4>
+                    <textarea style="width:100%" name='Teacher' rows="5"> 
+                    </textarea> 
+                    <input type ="submit" value = "Save" />
+                </form> 
+            </div>
+            <div class = "grid_4 ">
+            <form method="Post">
+                <h4>Parent</h4>
+                <textarea style="width:100%" name='Parent' rows="5"> 
+                </textarea> 
+                <input type ="submit" value = "Save" />
+            </form> 
+            </div>
+            <div class = "grid_4 omega">
+            <form method="Post">
+                <h4>Student</h4>
+                <textarea style="width:100%" name='Student' rows="5"> 
+                </textarea> 
+                </textarea> 
+                <input type ="submit" value = "Save" />
+            </form> 
+            </div>
+        </div>
     {% endfor %}
 {% endfor %}
 {% endblock%}
