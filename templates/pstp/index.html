@@ -1,0 +1,21 @@
+{% extends "pstp/base.html" %}
+
+{% block content %} 
+{%for subject, values in sub_dict.iteritems %}        
+    <h1>{{subject}}</h1> 
+    {% for value in values %}
+        <h2> {{value}}</h2>
+        {% for subheader, values in head_dict.iteritems %}
+            {% for value in values %}
+                <li>{{value}}
+            {% endfor %}
+            </ul>
+        {%endfor%}
+        <form method=post>
+        <h4>"Name of Commenter"</h4>  
+        <textarea row="10" cols="30">
+        </textarea> 
+        </form> 
+    {% endfor %}
+{% endfor %}
+{% endblock%}
