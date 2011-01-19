@@ -1,0 +1,87 @@
+{% extends 'display/base.html' %}
+
+{% block pagetitle %}{% endblock %}
+{% block title %}Healey Students by Grade{% endblock %}
+
+
+
+
+{% block primary %}
+    {% for year_set in dict_rows %}
+    <div class="grid_12 section alpha">
+        <div class="grid_12 menu_head alpha">
+            <a name="grade {{ forloop.counter }}" href="#grade_{{ forloop.counter }}" style="text-decoration:none; color"><h2 class="prefix_1">Grade {{ forloop.counter }}</h2> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ year_set|length }} students </a><br/>
+        </div>
+        <div class="contents" style:"">
+            <table id="grade_{{ forloop.counter }}" class='grid_12 spreadsheet tablesorter'>
+                <thead>
+                    <tr>
+                        <th>Fake Name</th>
+                        <th>Birthday</th> 
+                        <th>Program</th> 
+                        <th>Homeroom</th> 
+                        <th>Attendance</th> 
+                        <th>Susp</th> 
+                        <th>Math</th> 
+                        <th>ELA</th> 
+                        <th>Home Language</th> 
+                        <th>Race</th> 
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for student in year_set %}
+                    <tr class={# cycle '' 'row2' #}>
+                        <td>
+                            Jordan&nbsp;Fakename&nbsp;{% if student.gen == 'F' %}♀ {# &#9792; #}
+                            {% else %}♂ {# &#9794; #}
+                            {% endif %}
+                        </td>
+                        <td>{{ student.dob2 }}</td>
+                        <td>
+                            {% ifequal student.program 'Nb' %}
+                                Neighborhood
+                                {% else %}{% ifequal student.program 'Ch' %}
+                                    Choice
+                                    {% else %}
+                                        {{ student.program }}
+                            {% endifequal %}
+                            {% endifequal %}
+                        </td>
+                        <td>{{ student.hr }}</td>
+                        <td>{{ student.att }} %</td>
+                        <td>{{ student.susp }}</td>
+                        <td>{{ student.math }}</td>
+                        <td>{{ student.ela }}</td>
+                        <td>{{ student.homelang }}</td>
+                        <td>{{ student.race }}</td>
+                   </tr>
+                   {% endfor %}
+               </tbody>
+                <tfoot>
+                    <tr>
+                        <td>Fake Name</td>
+                        <td>Birthday</td> 
+                        <td>Program</td> 
+                        <td>Homeroom</td> 
+                        <td>Attendance</td> 
+                        <td>Susp</td> 
+                        <td>Math</td> 
+                        <td>ELA</td> 
+                        <td>Home Language</td> 
+                        <td>Race</td> 
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+{% endfor %}
+<hr/>
+&#9792;
+&#9793;
+&#9794;
+&#9795;
+&#256;
+&#257;
+&#258;
+
+{% endblock %}

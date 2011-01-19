@@ -1,0 +1,49 @@
+
+{% extends 'display/base.html' %}
+
+{% block pagetitle %}{% endblock %}
+
+{% block title %}Healey Students{% endblock %}
+
+
+
+
+{% block primary %}
+<div class="contents" style:"display: none">
+    <table class='spreadsheet'>
+        <thead>
+            <tr>
+                <td>Student ID</td> 
+                <td>September</td> 
+                <td>October</td> 
+                <td>November</td> 
+                <td>December</td> 
+                <td>January</td> 
+            </tr>
+        </thead>
+        <tbody>
+            {% for student in students %}
+            <tr class={% cycle '' 'row2' %}>
+                <td>{{ student.id }}</td>
+                <td>{{ student.attn_sept }}</td>
+                <td>{{ student.attn_oct }}</td>
+                <td>{{ student.attn_nov }}</td>
+                <td>{{ student.attn_dec }}</td>
+                <td>{{ student.attn_jan }}</td>
+           </tr>
+           {% endfor %}
+       </tbody>
+        <tfoot>
+            <tr>
+                <td>Student ID</td> 
+                <td>September</td> 
+                <td>October</td> 
+                <td>November</td> 
+                <td>December</td> 
+                <td>January</td> 
+            </tr>
+        </tfoot>
+    </table>
+</div>
+
+{% endblock %}
