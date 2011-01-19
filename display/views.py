@@ -2,7 +2,7 @@ from django.shortcuts import render_to_response
 from django.http import HttpResponse
 from django.template import Context, loader
 
-from dashboard.display.models import Spreadsheet, Student, StudentClass
+from display.models import Spreadsheet, Student, StudentClass
 
 import calendar
 import datetime
@@ -126,9 +126,11 @@ def fake_student(request):
 
 def issp(request, student_id=1):
     # Return what existing that we hvae
-    record = Student.objects.get(pk=student_id)
-    the_class = StudentClass.objects.filter(student=record.pk)[0]
-    adv_teacher = the_class.class_teach # guessing first() teacher the Advisor
+    #record = Student.objects.get(pk=student_id)
+    #the_class = StudentClass.objects.filter(student=record.pk)[0]
+    #adv_teacher = the_class.class_teach # guessing first() teacher the Advisor
+    adv_teacher = "Mrs. Robinson"
+        
 
     # Random values as placeholders for database stores
     math = {

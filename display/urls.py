@@ -1,7 +1,7 @@
 from django.conf.urls.defaults import *
-from dashboard.display.models import Spreadsheet
+from display.models import Spreadsheet
 
-urlpatterns = patterns('dashboard.display.views',
+urlpatterns = patterns('display.views',
     (r'^$', 'index'),
     (r'^grade', 'fake_grade'),
     (r'^graphs', 'graph_all'),
