@@ -3,45 +3,62 @@
 {% block primary %} 
 
 {%for subject, mysubheader in sub_dict.iteritems %}        
-    <h1>{{subject}}</h1> 
+    <h2 class="subject grid_12" style="margin-bottom:0em" >{{subject}}</h2> 
     {% for subheader, ga in mysubheader.iteritems %}
-        <hr /> 
-        <br /> 
-        <h2> {{subheader}}</h2>
-        <div class="contents">
-            <table class= "grid_8 suffix_4" cellpadding="0" cellspacing="0"> 
+        <div class="hr grid_12 alpha "></div>
+        <h4  class="grid_12  omega">{{subheader}}</h4>
+            <table class= "grid_8 rubric " cellpadding="0" cellspacing="0"> 
                 {% for value in ga %}
-                <tr> 
-                    <td>{{value}}</td>
-                    <td>{{value.grade}}</td>
-                </tr> 
+                <tr class="grid_8 alpha"> 
+                    <td class="grid_5 alpha" >{{value}}</td>
+                    <td >{{value.grade}}</td>
+                </tr>
                 {% endfor %}
             </table>
-        </div>
-        <div class = "grid_12 alpha omega" >
+            <table class="grid_3 omega">
+                <tr>
+                    {%if subheader == "Language" %} 
+                        <td>English Language Assessment</td>
+                        <td>382/400</td>
+                    </tr>
+                    <tr> 
+                        <td>Verbal Assessment </td>
+                        <td>60/100</td>
+                    {%else%}
+                        <td>MAP Essay Score</td>
+                        <td>382/400</td>
+                    </tr>
+                    <tr> 
+                        <td>Semester Essay </td>
+                        <td>60/100</td>
+                    </tr>
+                    {%endif%}
+                </tr>
+            </table>    
+        <div style="display:block" class = "grid_12 alpha omega" >
            <div class = "grid_4 omega ">
-                <form method="Post">
+                <form class="form" method="Post">
                     <h4>Teacher</h4>
-                    <textarea style="width:97%" name='Teacher' rows="5"> 
+                    <textarea style="width:97%" name='Teacher' rows="9"> 
                     </textarea> 
                     <input type ="submit" value = "Save" />
                 </form> 
             </div>
             <div class = "grid_4 omega ">
-            <form method="Post">
+            <form class="form" method="Post">
                 <h4>Parent</h4>
-                <textarea style="width:97%" name='Parent' rows="5"> 
+                <textarea style="width:97%" name='Parent' rows="9"> 
                 </textarea> 
                 <input type ="submit" value = "Save" />
             </form> 
             </div>
             <div class = "grid_4 omega">
-            <form method="Post">
+            <form class="form" method="Post">
                 <h4>Student</h4>
-                <textarea style="width:97%" name='Student' rows="5"> 
+                <textarea style="width:97%" name='Student' rows="9"> 
                 </textarea> 
                 </textarea> 
-                <input type ="submit" value = "Save" />
+                <input type ="submit" align="right" value = "Save" />
             </form> 
             </div>
         </div>
