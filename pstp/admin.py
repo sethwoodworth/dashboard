@@ -1,4 +1,4 @@
-from oneville.pstp.models import * 
+from pstp.models import * 
 from django.contrib import admin
 
 admin.site.register(Subject)

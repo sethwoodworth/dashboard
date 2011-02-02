@@ -2,8 +2,8 @@ import os
 import sys
 
 
-sys.path.append('/var/www/dashboard.oneville.org/')
-sys.path.append('/var/www/dashboard.oneville.org')
+sys.path.append('/var/www/dashboard/')
+sys.path.append('/var/www/dashboard')
 
 
 os.environ['DJANGO_SETTINGS_MODULE'] = 'settings'
