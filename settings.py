@@ -1,3 +1,4 @@
+import os
 # Django settings for oneville project.
 
 DEBUG = True
@@ -10,7 +11,7 @@ ADMINS = (
 MANAGERS = ADMINS
 
 DATABASE_ENGINE = 'django.db.backends.sqlite3'           # 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
-DATABASE_NAME = './dashboard.db'             # Or path to database file if using sqlite3.
+DATABASE_NAME = '/var/www/dashboard/dashboard.db'             # Or path to database file if using sqlite3.
 DATABASE_USER = ''             # Not used with sqlite3.
 DATABASE_PASSWORD = ''         # Not used with sqlite3.
 DATABASE_HOST = ''             # Set to empty string for localhost. Not used with sqlite3.
@@ -49,7 +50,7 @@ MEDIA_URL = 'static/'
 # URL prefix for admin media -- CSS, JavaScript and images. Make sure to use a
 # trailing slash.
 # Examples: "http://foo.com/media/", "/media/".
-ADMIN_MEDIA_PREFIX = '/media/'
+ADMIN_MEDIA_PREFIX = '/admin_media/'
 
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = ')=u3_%p=wlci5pv5a2zf!-ep@$s31tt$kjueshfin_&lup$vhv'
@@ -69,14 +70,14 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
 )
 
-ROOT_URLCONF = 'oneville.urls'
+ROOT_URLCONF = 'urls'
 
 TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
     'django.contrib.auth.middleware.AuthenticationMiddleware',
-    "./templates"
+    '/var/www/dashboard/templates'
 )
 
 INSTALLED_APPS = (
@@ -88,5 +89,5 @@ INSTALLED_APPS = (
     # 'django.contrib.admindocs',
     'pstp',
     'django.contrib.admin',
-    'oneville.display',
+    'display',
 )

@@ -10,8 +10,8 @@ import random
 from random import choice, gauss, randint, uniform
 
 from pygooglechart import PieChart2D, ScatterChart, StackedVerticalBarChart
-from pylab import *
-import etframes
+#from pylab import *
+#import etframes
 
 
 def students(request):
