@@ -9,7 +9,7 @@ import datetime
 import random
 from random import choice, gauss, randint, uniform
 
-from pygooglechart import PieChart2D, ScatterChart, StackedVerticalBarChart
+#from pygooglechart import PieChart2D, ScatterChart, StackedVerticalBarChart
 #from pylab import *
 #import etframes
 
