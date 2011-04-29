@@ -70,7 +70,9 @@
                         {% if not student.iep %} No {% endif %}
                         </td>
                     <td>
-                        {{ student.afterschool }}
+                        {% for program in student.afterschool %}
+                            {{ program }}
+                        {% endfor %}
                         </td>
                 </tr>
                 {% endfor %}
