@@ -189,6 +189,8 @@ def a_fake(count):
         student['ward'] = randint(1,7)
         student['ell'] = choice([True, False])
         student['iep'] = choice([False, False, False, False, False, False, True])
+        student['afterschool'] = w_choice(["B&G", "Peabody", "Mystic"])
+        #student['afterschool'] = set( [choice(["B&G", "Peabody", "Mystic"]), choice(["B&G", "Peabody", "Mystic"])])
         student_list.append(student)
     return student_list
 

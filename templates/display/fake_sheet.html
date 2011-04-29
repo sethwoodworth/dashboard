@@ -18,13 +18,14 @@
                 <th>Name</th>
                 <th>G</th>
                 <th>Homeroom</th>
-                <th>Days Absent</th>
+                <th>Qtr Days Absent</th>
                 <th>Home Language</th>
                 <th>MAP Math Growth</th>
                 <th>MAP Reading Growth</th>
                 <th>Ward</th>
-                <th>ELL</th>
-                <th>IEP</th>
+                <th>Receiving ELL</th>
+                <th>Has IEP</th>
+                <th>Afterschool</th>
             </tr></thead>
             <tbody>
                 {% for student in students %}
@@ -58,12 +59,19 @@
                         {% if student.ell %}#ddd;{% endif %}
                         {% if not student.ell %}#eee;{% endif %}
                         ">
-                        {{ student.ell }}</td>
+                        {% if student.ell %} Yes {% endif%}
+                        {% if not student.ell %} No {% endif %}
+                         </td>
                     <td style="background-color: 
                         {% if student.iep %}#ddd;{% endif %}
                         {% if not student.iep %}#eee;{% endif %}
                         ">
-                        {{ student.iep }}</td>
+                        {% if student.iep %} Yes {% endif%}
+                        {% if not student.iep %} No {% endif %}
+                        </td>
+                    <td>
+                        {{ student.afterschool }}
+                        </td>
                 </tr>
                 {% endfor %}
             </tbody>
