@@ -179,13 +179,16 @@ def a_fake(count):
         student['last_name'] = choice(['Perez', 'Ricci', 'Mathews', 'Mechem', 'Fonseca', 'Killoren', 'Haley', 'DeMattia'])
         student['gen'] = choice(['M','F'])
         student['homeroom'] = choice(['HEA 313', 'HEA 105', 'HEA 316', 'HEA 105', 'HEA 301', 'HEA 219', 'HEA 200'])
-        student['att'] = 100 - int(round(abs(gauss(0,9))))
+        student['att'] = int(round(abs(gauss(0,9))))
         student['homelang'] = w_choice([('Amharic', 0.01), ('Arabic', 0.01), ('Bengali', 0.03), 
             ('Creole(Haitian)', 0.1), ('Portuguese', 0.15), ('Spanish', 0.15), ('Dutch', 0.02), ('English', 0.7)])
-        student['math'] = randint(150,260)
-        student['reading'] = randint(170,250)
+        student['mapmath1'] = randint(150,260)
+        student['mapmath2'] = int(round(abs(gauss(0,11)))) 
+        student['mapreading1'] = randint(150,260)
+        student['mapreading2'] = int(round(abs(gauss(0,11)))) 
         student['ward'] = randint(1,7)
-        student['income'] = choice(['Not Eligible', 'Free Lunch', 'Reduced Lunch'])
+        student['ell'] = choice([True, False])
+        student['iep'] = choice([False, False, False, False, False, False, True])
         student_list.append(student)
     return student_list
 

@@ -18,12 +18,13 @@
                 <th>Name</th>
                 <th>G</th>
                 <th>Homeroom</th>
-                <th>Attendance</th>
+                <th>Days Absent</th>
                 <th>Home Language</th>
-                <th>MAP Math</th>
-                <th>MAP Reading</th>
+                <th>MAP Math Growth</th>
+                <th>MAP Reading Growth</th>
                 <th>Ward</th>
-                <th>Income</th>
+                <th>ELL</th>
+                <th>IEP</th>
             </tr></thead>
             <tbody>
                 {% for student in students %}
@@ -33,8 +34,8 @@
                             {% else %}♂ {# &#9794; #}
                         {% endif %}</td>
                     <td>{{ student.homeroom }}</td>
-                    <td style="{% if student.att < 85 %}background-color: lightGoldenRodYellow;{% endif %}">
-                        {{ student.att }} %</td>
+                    <td style="{% if student.att > 9 %}background-color: lightGoldenRodYellow;{% endif %}">
+                        {{ student.att }}</td>
                     <td style="background-color: 
                         {% if student.homelang == 'Spanish' %}#A8D6CD;{% endif %}
                         {% if student.homelang == 'Portuguese' %}#A8A8D6;{% endif %}
@@ -43,21 +44,26 @@
                         ">
                         {{ student.homelang }}</td>
                     <td style="background-color: 
-                        {% if student.math < 170 %}#C0342A;{% endif %}
-                        {% if student.math > 171 and student.math < 200 %}lightGoldenRodYellow;{% endif %}
+                        {% if student.mapmath2 < 3 %}#D6A8CD;{% endif %}
+                        {% if student.mapmath2 > 7 and student.math < 14 %}lightGoldenRodYellow;{% endif %}
                         ">
-                        {{ student.math }}</td>
+                        {{ student.mapmath2 }} ( {{ student.mapmath1 }} => {{ student.mapmath1|add:student.mapmath2 }})</td>
                     <td style="background-color: 
-                        {% if student.reading < 170 %}#C0342A;{% endif %}
-                        {% if student.reading > 171 and student.reading < 200 %}lightGoldenRodYellow;{% endif %}
+                        {% if student.mapreading2 < 3 %}#D6A8CD;{% endif %}
+                        {% if student.mapreading2 > 7 and student.reading < 14 %}lightGoldenRodYellow;{% endif %}
                         ">
-                        {{ student.reading }}</td>
+                        {{ student.mapreading2 }} ( {{ student.mapreading1 }} => {{ student.mapreading1|add:student.mapreading2 }})</td>
                     <td>{{ student.ward }}</td>
                     <td style="background-color: 
-                        {% if student.income == 'Free Lunch' %}#ddd;{% endif %}
-                        {% if student.income == 'Reduced Lunch' %}#eee;{% endif %}
+                        {% if student.ell %}#ddd;{% endif %}
+                        {% if not student.ell %}#eee;{% endif %}
                         ">
-                        {{ student.income }}</td>
+                        {{ student.ell }}</td>
+                    <td style="background-color: 
+                        {% if student.iep %}#ddd;{% endif %}
+                        {% if not student.iep %}#eee;{% endif %}
+                        ">
+                        {{ student.iep }}</td>
                 </tr>
                 {% endfor %}
             </tbody>
