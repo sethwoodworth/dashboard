@@ -179,15 +179,27 @@ def a_fake(count):
         student['last_name'] = choice(['Perez', 'Ricci', 'Mathews', 'Mechem', 'Fonseca', 'Killoren', 'Haley', 'DeMattia'])
         student['gen'] = choice(['M','F'])
         student['homeroom'] = choice(['HEA 313', 'HEA 105', 'HEA 316', 'HEA 105', 'HEA 301', 'HEA 219', 'HEA 200'])
-        student['att'] = int(round(abs(gauss(0,9))))
-        student['homelang'] = w_choice([('Amharic', 0.01), ('Arabic', 0.01), ('Bengali', 0.03), 
-            ('Creole(Haitian)', 0.1), ('Portuguese', 0.15), ('Spanish', 0.15), ('Dutch', 0.02), ('English', 0.7)])
+        student['att'] = int(round(abs(gauss(0,9)))) # Attendance
+        student['tardy'] = int(round(abs(gauss(0,9))))
+        student['homelang'] = w_choice([
+          ('Amharic',         0.01), 
+          ('Arabic',          0.01), 
+          ('Bengali',         0.03), 
+          ('Creole(Haitian)', 0.10), 
+          ('Portuguese',      0.15), 
+          ('Spanish',         0.15), 
+          ('Dutch',           0.02), 
+          ('English',         0.7)])
+        student['yearsat'] = random.randint(1,6)
         student['mapmath1'] = randint(150,260)
         student['mapmath2'] = int(round(abs(gauss(0,11)))) 
         student['mapreading1'] = randint(150,260)
         student['mapreading2'] = int(round(abs(gauss(0,11)))) 
         student['ward'] = randint(1,7)
         student['ell'] = choice([True, False])
+        if student['ell'] == True:
+          student['mepa_r'] = random.randint(10,30)
+          student['mepa_w'] = random.randint(10,30)
         student['iep'] = choice([False, False, False, False, False, False, True])
         student['afterschool'] = set( [w_choice([("B&G", 0.5), ("Peabody", 0.05), ("Mystic", 0.15), ("", .30)]), w_choice([("B&G", 0.1), ("Peabody", 0.05), ("Mystic", 0.15), ("", .50)])])
 
@@ -196,7 +208,7 @@ def a_fake(count):
 
 def fake_grade(request):
     students = a_fake(100)
-    return render_to_response('display/fake_sheet.html', {'students': students})
+    return render_to_response('display/admin.html', {'students': students})
 
 def graph_all(request):
     birthdays = Spreadsheet.objects.order_by('dob2').exclude(dob2='').all()

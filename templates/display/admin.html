@@ -1,162 +1,142 @@
-
-{% extends 'base.html' %}
+{% extends 'base2.html' %}
 
 {% block pagetitle %}{% endblock %}
 {% block title %}Students Example Grade/Class{% endblock %}
 
-
-
+{% block javascript %}
+{% endblock %}
 
 {% block primary %}
-<div class="grid_12 section alpha">
-    <div class="grid_12 menu_head alpha">
-        <a name="grade X" style="text-decoration:none;"><h2 class="prefix_1">Grade 6</h2>
-    </div>
-    <div class="contents">
-        <table class="grid_12 spreadsheet tablesorter">
-            <thead><tr>
-                <th>Name</th>
-                <th>G</th>
-                <th>Homeroom</th>
-                <th>Qtr Days Absent</th>
-                <th>Home Language</th>
-                <th>MAP Math Growth</th>
-                <th>MAP Reading Growth</th>
-                <th>Ward</th>
-                <th>Receiving ELL</th>
-                <th>Has IEP</th>
-                <th>Afterschool</th>
-            </tr></thead>
-            <tbody>
-                {% for student in students %}
-                <tr>
-                    <td>{{ student.last_name }}, {{ student.first_name }}</td>
-                    <td>{% if student.gen == 'F' %}♀ {# &#9792; #}
-                            {% else %}♂ {# &#9794; #}
-                        {% endif %}</td>
-                    <td>{{ student.homeroom }}</td>
-                    <td style="{% if student.att > 9 %}background-color: lightGoldenRodYellow;{% endif %}">
-                        {{ student.att }}</td>
-                    <td style="background-color: 
-                        {% if student.homelang == 'Spanish' %}#A8D6CD;{% endif %}
-                        {% if student.homelang == 'Portuguese' %}#A8A8D6;{% endif %}
-                        {% if student.homelang == 'English' %}#D6A8CD;{% endif %}
-                        {% if student.homelang == 'Creole(Haitian)' %}#D6BBA8;{% endif %}
-                        ">
-                        {{ student.homelang }}</td>
-                    <td style="background-color: 
-                        {% if student.mapmath2 < 3 %}#D6A8CD;{% endif %}
-                        {% if student.mapmath2 > 7 and student.math < 14 %}lightGoldenRodYellow;{% endif %}
-                        ">
-                        {{ student.mapmath2 }} ( {{ student.mapmath1 }} => {{ student.mapmath1|add:student.mapmath2 }})</td>
-                    <td style="background-color: 
-                        {% if student.mapreading2 < 3 %}#D6A8CD;{% endif %}
-                        {% if student.mapreading2 > 7 and student.reading < 14 %}lightGoldenRodYellow;{% endif %}
-                        ">
-                        {{ student.mapreading2 }} ( {{ student.mapreading1 }} => {{ student.mapreading1|add:student.mapreading2 }})</td>
-                    <td>{{ student.ward }}</td>
-                    <td style="background-color: 
-                        {% if student.ell %}#ddd;{% endif %}
-                        {% if not student.ell %}#eee;{% endif %}
-                        ">
-                        {% if student.ell %} Yes {% endif%}
-                        {% if not student.ell %} No {% endif %}
-                         </td>
-                    <td style="background-color: 
-                        {% if student.iep %}#ddd;{% endif %}
-                        {% if not student.iep %}#eee;{% endif %}
-                        ">
-                        {% if student.iep %} Yes {% endif%}
-                        {% if not student.iep %} No {% endif %}
-                        </td>
-                    <td>
-                        {% for program in student.afterschool %}
-                            {{ program }}
-                        {% endfor %}
-                        </td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
+<div id="section" class="grid_16 section alpha">
 
-            
-            
+  <div class="grid_16 menu_head alpha">
+    <a name="grade X" style="text-decoration:none;"><h2 class="prefix_1">Grade 6</h2>
+  </div> <!-- grid_16 -->
 
-</div>
-{# does not work V #}
-    {% for year_set in dict_rows %}
-    <div class="grid_12 section alpha">
-        <div class="grid_12 menu_head alpha">
-            <a name="grade {{ forloop.counter }}" href="#grade_{{ forloop.counter }}" style="text-decoration:none; color"><h2 class="prefix_1">Grade {{ forloop.counter }}</h2> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ year_set|length }} students </a><br/>
-        </div>
-        <div class="contents" style:"">
-            <table id="grade_{{ forloop.counter }}" class='grid_12 spreadsheet tablesorter'>
-                <thead>
-                    <tr>
-                        <th>Fake Name</th>
-                        <th>Birthday</th> 
-                        <th>Program</th> 
-                        <th>Homeroom</th> 
-                        <th>Attendance</th> 
-                        <th>Susp</th> 
-                        <th>Math</th> 
-                        <th>ELA</th> 
-                        <th>Home Language</th> 
-                        <th>Race</th> 
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for student in year_set %}
-                    <tr class={# cycle '' 'row2' #}>
-                        <td>
-                            Jordan&nbsp;Fakename&nbsp;{% if student.gen == 'F' %}♀ {# &#9792; #}
-                            {% else %}♂ {# &#9794; #}
-                            {% endif %}
-                        </td>
-                        <td>{{ student.dob2 }}</td>
-                        <td>
-                            {% ifequal student.program 'Nb' %}
-                                Neighborhood
-                                {% else %}{% ifequal student.program 'Ch' %}
-                                    Choice
-                                    {% else %}
-                                        {{ student.program }}
-                            {% endifequal %}
-                            {% endifequal %}
-                        </td>
-                        <td>{{ student.hr }}</td>
-                        <td style="
-                            {% if student.att < ' 87 ' %}
-                            background-color: #ECE9DF;
-                            {% endif %}
-                            ">{{ student.att|stringformat:"#s" }} %</td>
-                        <td>{{ student.susp }}</td>
-                        <td>{{ student.math }}</td>
-                        <td>{{ student.ela }}</td>
-                        <td>{{ student.homelang }}</td>
-                        <td>{{ student.race }}</td>
-                   </tr>
-                   {% endfor %}
-               </tbody>
-                <tfoot>
-                    <tr>
-                        <td>Fake Name</td>
-                        <td>Birthday</td> 
-                        <td>Program</td> 
-                        <td>Homeroom</td> 
-                        <td>Attendance</td> 
-                        <td>Susp</td> 
-                        <td>Math</td> 
-                        <td>ELA</td> 
-                        <td>Home Language</td> 
-                        <td>Race</td> 
-                    </tr>
-                </tfoot>
-            </table>
-        </div>
-    </div>
-{% endfor %}
+  <div class="contents">
+    <table class="grid_16 spreadsheet tablesorter">
+      <thead><tr>
+        <th>Name</th>
+        <th>G</th>
+        <th>Homeroom</th>
+        <th><span title="Days Absent this Quarter">Abs</span></th>
+        <th><span title="Days Tardy this Quarter">Tardy</span></th>
+        <th>Home Language</th>
+        <th>
+          <span title="Years at the Healey">
+          Y @ H
+        </th>
+        <th>MAP Math Δ</th>
+        <th>MAP Reading Δ</th>
+        <th>Ward</th>
+        <th> <span title="Receiving ELL?">
+          ELL
+        </span> </th>
+        <th> <span title="Massachusetts English Proficiency Assessment">
+          MEPA
+        </th>
+        <th>Has IEP</th>
+        <th> <span title="What afterschool programs?">
+          Afterschool
+        </span> </th>
+      </tr></thead>
+      <tbody>
+        {% for student in students %}
+        <tr>
+          <td>{{ student.last_name }}, {{ student.first_name }}</td>
+          <td>
+            {% if student.gen == 'F' %}♀ {# &#9792; #}
+            {% else %}♂ {# &#9794; #}
+            {% endif %}
+          </td>
+          <td>{{ student.homeroom }}</td>
+          <td class="
+            {% if student.att > 9 %} warn {% endif %}
+            ">
+            {{ student.att }}
+          </td>
+          <td class="
+            {% if student.tardy > 9 %} warn {% endif %}
+            ">
+            {{ student.tardy }}
+          </td>
+          <td class="
+              {% if student.homelang == 'Spanish' %}          teal  {% endif %}
+              {% if student.homelang == 'Portuguese' %}       dblue {% endif %}
+              {% if student.homelang == 'English' %}          purp  {% endif %}
+              {% if student.homelang == 'Creole(Haitian)' %}  brown {% endif %}
+              ">
+            {{ student.homelang }}
+          </td>
+          <td>
+            <span title="Has been at the Healey for {{ student.yearsat }} years">
+            {{ student.yearsat }} 
+          </td>
+          <td class="
+              {% if student.mapmath2 < 3 %} purp {% endif %}
+              {% if student.mapmath2 > 7 and student.math < 14 %} warn {% endif %}
+            ">
+            {{ student.mapmath2 }} ( {{ student.mapmath1 }} => {{ student.mapmath1|add:student.mapmath2 }})
+          </td>
+
+          <td class="
+              {% if student.mapreading2 < 3 %} purp {% endif %}
+              {% if student.mapreading2 > 7 and student.reading < 14 %} warn {% endif %}
+            ">
+            {{ student.mapreading2 }} ( {{ student.mapreading1 }} => {{ student.mapreading1|add:student.mapreading2 }})
+          </td>
+
+          <td>{{ student.ward }}</td>
+
+
+          <td class="
+              {% if student.ell %}#ddd;{% endif %}
+              {% if not student.ell %}#eee;{% endif %}
+              ">
+            {% if student.ell %} Yes {% endif%}
+            {% if not student.ell %} No {% endif %}
+          </td>
+
+          <!-- if Ell, MEPA -->
+          <td class="
+              {% if student.mepa_r %}
+                {% if student.mepa_r < 11 %} warn {% endif %}
+                {% if student.mepa_w < 11 %} warn {% endif %}
+              {% endif %}
+            ">
+            {% if student.mepa_r %}
+              <span title="MEPA Reading Score of {{ student.mepa_r }} / 30">
+                R{{ student.mepa_r }}
+              </span>
+               / 
+              <span title="MEPA Writing Score of {{ student.mepa_w }} / 30">
+                W{{ student.mepa_w }}
+              </span>
+            {% endif %}
+          </td>
+
+          <td class="
+              {% if student.iep %}#ddd;{% endif %}
+              {% if not student.iep %}#eee;{% endif %}
+            ">
+            {% if student.iep %} Yes {% endif%}
+            {% if not student.iep %} No {% endif %}
+          </td>
+
+          <td>
+            {% for program in student.afterschool %}
+              {{ program }}
+            {% endfor %}
+          </td>
+        </tr>
+
+
+      {% endfor %}
+    </tbody>
+  </table>
+</div> <!-- contents -->
+</div> <!-- #section -->
+
 <hr/>
 &#9792;
 &#9793;

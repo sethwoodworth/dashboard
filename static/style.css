@@ -202,3 +202,22 @@ th.header {
 .warn > .body { background-color: yellow;}
 
 .center { text-align: center; }
+
+
+/* Admin interface */
+td.warn {
+  background-color: lightGoldenRodYellow;
+  }
+td.teal {
+  background-color: #A8D6CD;
+  }
+td.dblue {
+  background-color: #A8A8D6;
+  }
+td.purp {
+  background-color: #D6A8CD;
+  }
+td.brown {
+  background-color: #D6BBA8;
+  }
+  
