@@ -4,13 +4,15 @@
 {% block title %}Students Example Grade/Class{% endblock %}
 
 {% block javascript %}
+  <script type="text/javascript" src="/static/js/flot/jquery.flot.js"></script>
 {% endblock %}
 
 {% block primary %}
 <div id="section" class="grid_16 section alpha">
 
   <div class="grid_16 menu_head alpha">
-    <a name="grade X" style="text-decoration:none;"><h2 class="prefix_1">Grade 6</h2>
+    <a name="grade X" style="text-decoration:none;"><h2 class="prefix_1">Grade 6</h2></a>
+  {{ graph_data }}
   </div> <!-- grid_16 -->
 
   <div class="contents">
@@ -26,10 +28,14 @@
           <span title="Years at the Healey">
           Y @ H
         </th>
-        <th>MAP Math Δ</th>
-        <th>MAP Reading Δ</th>
+        <th> <span title="Change since the last time the test was taken">
+          MAP Math Δ
+        </span> </th>
+        <th> <span title="Change since the last time the test was taken">
+          MAP Reading Δ
+        </span> </th>
         <th>Ward</th>
-        <th> <span title="Receiving ELL?">
+        <th> <span title="Receiving ELL services">
           ELL
         </span> </th>
         <th> <span title="Massachusetts English Proficiency Assessment">
@@ -73,17 +79,50 @@
             {{ student.yearsat }} 
           </td>
           <td class="
-              {% if student.mapmath2 < 3 %} purp {% endif %}
+              {% if student.mapmath2 <= 7 %} purp {% endif %}
               {% if student.mapmath2 > 7 and student.math < 14 %} warn {% endif %}
             ">
-            {{ student.mapmath2 }} ( {{ student.mapmath1 }} => {{ student.mapmath1|add:student.mapmath2 }})
+            {% if student.mapmath2 <= 7 %}
+              <span title="purple indicates a notably negative change that should prompt more analysis">
+
+              +{{ student.mapmath2 }} ( {{ student.mapmath1 }} => {{ student.mapmath1|add:student.mapmath2 }})
+              </span>
+            {% endif %}
+
+            {% if student.mapmath2 > 7 and student.mapmath2 < 14 %}
+              <span title="yellow indicates a negative change that may prompt further analysis">
+              +{{ student.mapmath2 }} ( {{ student.mapmath1 }} => {{ student.mapmath1|add:student.mapmath2 }})
+              </span>
+            {% endif %}
+
+            {% if student.mapmath2 >= 14 %}
+              +{{ student.mapmath2 }} ( {{ student.mapmath1 }} => {{ student.mapmath1|add:student.mapmath2 }})
+            {% endif %}
+
+
           </td>
 
           <td class="
-              {% if student.mapreading2 < 3 %} purp {% endif %}
-              {% if student.mapreading2 > 7 and student.reading < 14 %} warn {% endif %}
+              {% if student.mapreading2 <= 7 %} purp {% endif %}
+              {% if student.mapreading2 > 7 and student.mapreading2 < 14 %} warn {% endif %}
             ">
-            {{ student.mapreading2 }} ( {{ student.mapreading1 }} => {{ student.mapreading1|add:student.mapreading2 }})
+
+              {% if student.mapreading2 <= 7 %} 
+                <span title="purple indicates a notably negative change that should prompt more analysis">
+                +{{ student.mapreading2 }} ( {{ student.mapreading1 }} => {{ student.mapreading1|add:student.mapreading2 }})
+                </span>
+              {% endif %}
+
+              {% if student.mapreading2 > 7 and student.mapreading2 < 14 %} 
+                <span title="yellow indicates a negative change that may prompt further analysis">
+                +{{ student.mapreading2 }} ( {{ student.mapreading1 }} => {{ student.mapreading1|add:student.mapreading2 }})
+                </span>
+              {% endif %}
+
+              {% if student.mapreading2 >= 14 %}
+                +{{ student.mapreading2 }} ( {{ student.mapreading1 }} => {{ student.mapreading1|add:student.mapreading2 }})
+              {% endif %}
+
           </td>
 
           <td>{{ student.ward }}</td>
@@ -134,7 +173,86 @@
       {% endfor %}
     </tbody>
   </table>
+
+  <!-- Start graph section -->
+  <script type="text/javascript"> 
+
+      lang_data = [
+          {data: [
+          {% for key,value in lang.0.items %}
+            [{{ forloop.counter }}, {{ value }}], 
+          {% endfor %}
+          ]}
+        ];
+
+      math_read_data = [
+        { data: [
+        {% for x,y in math_v_read %}
+          [{{x}},{{y}}],
+        {% endfor %}
+         ], points: { symbol: "circle" } 
+         }];
+      
+      lang_options = {
+        series: {
+          bars:  {
+            show:      true,
+            barWidth:  0.9,
+            align:     'center',
+          },},
+        xaxis: {
+          ticks: [
+          {% for key,value in lang.0.items %}
+            [{{ forloop.counter }}, '{{ key }}'],
+          {% endfor %}
+          ]}
+      };
+
+      math_read_options = {
+        series: { points: { show: true, radius: 3 } }
+      };
+
+
+    $(function () {
+      $.plot($("#placeholder"),  lang_data, lang_options);
+    });
+  </script> 
 </div> <!-- contents -->
+
+<div id="graphs" class="grid_16">
+
+  <div id="buttons" class="grid_3">
+    <ul>
+      <li> 
+        <script type="text/javascript"> 
+          function clear_graph() {
+            $.plot($('#placeholder'), [])
+          };
+        </script>
+        <a href="#clear" onclick="clear_graph()">clear</a>
+      </li>
+      <li> 
+        <script type="text/javascript"> 
+          function lang_graph() {
+            $.plot($("#placeholder"),  lang_data, lang_options);
+          };
+        </script>
+        <a href="#language" onclick="lang_graph()">language</a>
+      </li>
+      <li> 
+        <script type="text/javascript"> 
+          function math_read_graph() {
+            $.plot($('#placeholder'), math_read_data, math_read_options)
+          };
+        </script>
+        <a href="#math_read" onclick="math_read_graph()">math x reading</a>
+      </li>
+  </div>
+
+  <div id="placeholder" class="grid_10 prefix_1" style='height:600px;'></div>
+  <!-- End graph section -->
+</div> <!-- graphs -->
+
 </div> <!-- #section -->
 
 <hr/>

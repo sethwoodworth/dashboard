@@ -171,7 +171,7 @@ def w_choice(lst):
         n = n - weight
     return item
 
-def a_fake(count):
+def a_fake(count=1):
     student_list = []
     for x in range(count):
         student = {}
@@ -207,8 +207,21 @@ def a_fake(count):
     return student_list
 
 def fake_grade(request):
+    from collections import Counter
+
     students = a_fake(100)
-    return render_to_response('display/admin.html', {'students': students})
+
+    # prepare language graph data
+    data = [s['homelang'] for s in students]
+    l_cnt = Counter()
+    for word in data:
+      l_cnt[word] += 1
+    lang_graph = [dict(l_cnt)]
+
+    # prepare math x read graph data
+    mvr_data = [[s['mapmath2'], s['mapreading2']] for s in students]
+
+    return render_to_response('display/admin.html', {'students': students, 'lang': lang_graph, 'math_v_read': mvr_data})
 
 def graph_all(request):
     birthdays = Spreadsheet.objects.order_by('dob2').exclude(dob2='').all()
