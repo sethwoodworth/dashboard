@@ -135,3 +135,23 @@ class Supporter(models.Model):
     student = models.ForeignKey(Student)
     name = models.TextField()
     relationship = models.TextField()
+
+class Demographics(models.Model):
+    fname = models.TextField()
+    mname = models.TextField(null=True)
+    lname = models.TextField()
+    id1 = models.IntegerField()
+    id2 = models.IntegerField()
+    grade_level = models.TextField() # KF,1..8
+    grad_year = models.IntegerField() # expected
+    homeroom = models.TextField()
+    gender = models.TextField() # dare I make a binary?
+    birth_date = models.TextField()
+    home_lang = models.TextField()
+    lang_level = models.TextField() # eg Fluent
+    race = models.TextField() # eg White
+    other1 = models.TextField(null=True)
+    frl = models.TextField() # Free & reduced Lunch, should be 0, 1, 2
+    attendance = models.DecimalField(max_digits=5, decimal_places=2, null=True) # think is attendance
+    other2 = models.TextField(null=True)
+    enrollment = models.TextField(default="Active")

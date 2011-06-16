@@ -13,6 +13,42 @@ from random import choice, gauss, randint, uniform
 #from pylab import *
 #import etframes
 
+def load_demographics(request):
+    import csv # local import
+    import decimal
+    from  display.models import Demographics
+    file = open('./data/HEA_DEMO.txt', 'r')
+    reader = csv.reader(file)
+    for student in reader:
+        d = Demographics()
+        d.fname         = student[0]    #"Aaron", 
+        d.mname         = student[1]    #"Solomon"
+        d.lname         = student[2]    #,"Abrams-Greenberg"
+        d.id1           = int(student[3]) #,"111003467"
+        d.id2           = int(student[4]) #,"1025596710"
+        d.grade_level   = student[5] #,"02"
+        d.grad_year     = int(student[6]) #,"2021"
+        d.homeroom      = student[7]    #,"HEA 105"
+        d.gender        = student[8]    #,"M"
+        d.birth_date    = student[9]    #,"2003-02-03"
+        d.home_lang     = student[10]    #"english"
+        d.lang_level    = student[11]   #"fluent
+        d.race          = student[12]    #"white
+        # skip d.other1 = student[13]
+        # skip \N       = student[14]
+        d.frl           = student[15]   
+        if student[16] != '\N':
+            d.attendance    = decimal.Decimal(student[16])
+        d.other2        = student[17]
+        d.enrollment    = student[18]
+        d.save()
+    return render_to_response('display/students.html', {'students': []})
+
+def real_grade(request):
+    from display.models import Demographics
+    students = Demographics.objects.all()
+    return render_to_response('display/real_admin.html', {'students': students})
+
 
 def students(request):
     records = Student.objects.all()
