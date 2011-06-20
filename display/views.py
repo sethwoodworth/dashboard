@@ -16,24 +16,30 @@ from random import choice, gauss, randint, uniform
 def load_demographics(request):
     import csv # local import
     import decimal
+
     from  display.models import Demographics
+
+    ## Clean out old tables and reimport from scratch
+    Demographics.objects.all().delete()
+
+    ## Load the Demographics table
     file = open('./data/HEA_DEMO.txt', 'r')
     reader = csv.reader(file)
     for student in reader:
         d = Demographics()
-        d.fname         = student[0]    #"Aaron", 
-        d.mname         = student[1]    #"Solomon"
-        d.lname         = student[2]    #,"Abrams-Greenberg"
-        d.id1           = int(student[3]) #,"111003467"
-        d.id2           = int(student[4]) #,"1025596710"
-        d.grade_level   = student[5] #,"02"
-        d.grad_year     = int(student[6]) #,"2021"
-        d.homeroom      = student[7]    #,"HEA 105"
-        d.gender        = student[8]    #,"M"
-        d.birth_date    = student[9]    #,"2003-02-03"
-        d.home_lang     = student[10]    #"english"
-        d.lang_level    = student[11]   #"fluent
-        d.race          = student[12]    #"white
+        d.fname         = student[0]
+        d.mname         = student[1]
+        d.lname         = student[2]
+        d.id1           = int(student[3])
+        d.id2           = int(student[4])
+        d.grade_level   = student[5]
+        d.grad_year     = int(student[6])
+        d.homeroom      = student[7]
+        d.gender        = student[8]
+        d.birth_date    = student[9]
+        d.home_lang     = student[10]
+        d.lang_level    = student[11]
+        d.race          = student[12]
         # skip d.other1 = student[13]
         # skip \N       = student[14]
         d.frl           = student[15]   
@@ -42,6 +48,23 @@ def load_demographics(request):
         d.other2        = student[17]
         d.enrollment    = student[18]
         d.save()
+    file.close()
+
+    ## Load District Entry and Exit info
+    file1 = open('./data/HEA_ENTRY.txt', 'r')
+    file2 = open('./data/HEA_EXIT.txt', 'r')
+    entry_reader = csv.reader(file1)
+    exit_reader = csv.reader(file2)
+    for record in entry_reader:
+        sid1 = record[1]
+        Demographics.objects.filter(id1=sid1).update(entry_date=record[5])
+    for record in exit_reader:
+        sid1 = record[1]
+        Demographics.objects.filter(id1=sid1).update(exit_date=record[5])
+        Demographics.objects.filter(id1=sid1).update(withdrawl=record[3])
+    file1.close()
+    file2.close()
+        
     return render_to_response('display/students.html', {'students': []})
 
 def real_grade(request):
