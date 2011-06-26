@@ -14,13 +14,24 @@ from random import choice, gauss, randint, uniform
 #import etframes
 
 def load_demographics(request):
-    import csv # local import
+    """
+    Read locally hosted csv files from Somerville's X2 export and feeds them 
+    into the django database.  This enables us to reload on new export or to 
+    fix errors from a static platonic ideal.
+    """
+    # TODO: rename, not just touching upon demographics anymore
+    from django.shortcuts import redirect
+    import csv
     import decimal
 
-    from  display.models import Demographics
+    from display.models import Demographics
+    from display.models import DIEBELS
+    from display.models import Mcasela
+    from display.models import Mcasmath
 
     ## Clean out old tables and reimport from scratch
     Demographics.objects.all().delete()
+    DIEBELS.objects.all().delete()
 
     ## Load the Demographics table
     file = open('./data/HEA_DEMO.txt', 'r')
@@ -56,8 +67,11 @@ def load_demographics(request):
     entry_reader = csv.reader(file1)
     exit_reader = csv.reader(file2)
     for record in entry_reader:
+        # TODO: make these one update statement
         sid1 = record[1]
+        years = 2011 - int(record[5][:4])
         Demographics.objects.filter(id1=sid1).update(entry_date=record[5])
+        Demographics.objects.filter(id1=sid1).update(years_at=years)
     for record in exit_reader:
         sid1 = record[1]
         Demographics.objects.filter(id1=sid1).update(exit_date=record[5])
@@ -65,12 +79,91 @@ def load_demographics(request):
     file1.close()
     file2.close()
         
-    return render_to_response('display/students.html', {'students': []})
+    ## Load Attendence for Year to Date
+    file = open('./data/HEA_ATT_YTD.txt', 'r')
+    reader = csv.reader(file)
+    for record in reader:
+        Demographics.objects.filter(id1=record[0]).update(missed_days=record[1])
+
+    ## DIBELS tests
+    grades          = ['KF', '01', '02', '03']
+    test_numbers    = ['1', '2', '3']
+    for grade in grades:
+        for test in test_numbers:
+            filename = './data/HEA_DIBELS' + test + '_G' + grade + '.txt'
+            file = open(filename, 'r')
+            reader = csv.reader(file)
+            for test in reader:
+                demo = Demographics.objects.filter(id1=test[1]).all()[0]
+                dd = DIEBELS()
+                dd.f_id1 = demo
+                dd.test_name = test[3]
+                dd.date = test[4]
+                dd.result = test[7]
+                dd.save()
+
+    ## MCAS English Language Arts (ELA)
+    grades = ['03', '04', '05', '06', '07', '08']
+    for grade in grades:
+        filename = './data/HEA_ELA_G' + grade + '.txt'
+        file = open(filename, 'r')
+        reader = csv.reader(file)
+        for test in reader:
+            demo = Demographics.objects.filter(id1=test[1]).all()[0]
+            ela = Mcasela()
+            ela.f_id1 = demo
+            ela.test_name = test[3]
+            ela.date = test[4]
+            if test[7] != '\N':
+                ela.scaled_score = test[7]
+            if test[8] != '\N':
+                ela.raw_score = test[8]
+            ela.level = test[9]
+            ela.save()
+
+    ## MCAS Math
+    grades = ['03', '04', '05', '06', '07', '08']
+    for grade in grades:
+        filename = './data/HEA_MATH_G' + grade + '.txt'
+        file = open(filename, 'r')
+        reader = csv.reader(file)
+        for test in reader:
+            demo = Demographics.objects.filter(id1=test[1]).all()[0]
+            math = Mcasmath()
+            math.f_id1 = demo
+            math.test_name = test[3]
+            math.date = test[4]
+            if test[7] != '\N':
+                math.scaled_score = test[7]
+            if test[8] != '\N':
+                math.raw_score = test[8]
+            math.level = test[9]
+            math.save()
+
+    return redirect('/real')
 
 def real_grade(request):
     from display.models import Demographics
     students = Demographics.objects.all()
-    return render_to_response('display/real_admin.html', {'students': students})
+    students_all = []
+    for student in students:
+        # setup data structure to return
+        student_d = {'data': student, 'tests': {}}
+
+        # Return diebel test info
+        diebels = student.diebels_set.order_by('date').reverse()
+        student_d['tests']['diebels'] = diebels
+        # Return mcas_ela test info
+        mcas_ela = student.mcasela_set.order_by('date').reverse()
+        student_d['tests']['ela'] = mcas_ela
+        # Return mcas_math test info
+        mcas_math = student.mcasmath_set.order_by('date').reverse()
+        student_d['tests']['math'] = mcas_math
+
+        students_all.append(student_d)
+
+        
+    return render_to_response('display/real_admin.html', {'students': students, 'students_all': students_all})
 
 
 def students(request):
